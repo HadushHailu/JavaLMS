@@ -177,7 +177,7 @@ public class DashboardWindow implements WindowManager{
 			
 		panelCheckoutRecord = new JPanel();
 		panelCheckoutRecord.setBackground(new Color(114, 159, 207));
-		layeredPane.add(panelCheckoutRecord, "name_22646448329131");
+		layeredPane.add(panelCheckoutRecord);
 		panelCheckoutRecord.setLayout(null);
 		
 		JLabel lblCheckoutMember = new JLabel("Checkout Member");
