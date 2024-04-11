@@ -1,9 +1,12 @@
 package Library_Management_System.dataaccess;
 
 import Library_Management_System.business.Book;
+import Library_Management_System.business.CheckoutEntry;
 import Library_Management_System.business.Address;
 import Library_Management_System.business.Author;
 import Library_Management_System.business.LibraryMember;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,9 +32,13 @@ public class TestData {
 		td.bookData();
 		td.libraryMemberData();
 		td.userData();
+		td.checkoutRecordData();
 		DataAccess da = new Library_Management_System.dataaccess.DataAccessFacade();
 		System.out.println(da.readBooksMap());
 		System.out.println(da.readUserMap());
+		
+		System.out.println("Dumy checkout record data: ");
+		System.out.println(da.readCheckoutRecordMap());
 	}
 	///create books
 	public void bookData() {
@@ -47,6 +54,7 @@ public class TestData {
 	public void userData() {
 		DataAccessFacade.loadUserMap(allUsers);
 	}
+	
 	
 	//create library members
 	public void libraryMemberData() {
@@ -66,8 +74,22 @@ public class TestData {
 	
 	///////////// DATA //////////////
 	List<LibraryMember> members = new ArrayList<LibraryMember>();
-	@SuppressWarnings("serial")
+	List<CheckoutEntry> allCheckoutRecords = new ArrayList<CheckoutEntry>();
 	
+	@SuppressWarnings("serial")
+	public void checkoutRecordData(){
+			System.out.println(members.size());
+			allCheckoutRecords.add(new CheckoutEntry("123",members.get(0), allUsers.get(0),allBooks.get(0),LocalDate.now(), LocalDate.now()));
+			allCheckoutRecords.add(new CheckoutEntry("124",members.get(1), allUsers.get(2),allBooks.get(1),LocalDate.now(), LocalDate.now()));
+			allCheckoutRecords.add(new CheckoutEntry("125",members.get(2), allUsers.get(2),allBooks.get(2),LocalDate.now(), LocalDate.now()));
+			allCheckoutRecords.add(new CheckoutEntry("126",members.get(2), allUsers.get(0),allBooks.get(3),LocalDate.now(), LocalDate.now()));
+			allCheckoutRecords.add(new CheckoutEntry("127",members.get(2), allUsers.get(0),allBooks.get(0),LocalDate.now(), LocalDate.now()));
+			allCheckoutRecords.add(new CheckoutEntry("128",members.get(1), allUsers.get(2),allBooks.get(2),LocalDate.now(), LocalDate.now()));
+			allCheckoutRecords.add(new CheckoutEntry("129",members.get(0), allUsers.get(0),allBooks.get(1),LocalDate.now(), LocalDate.now()));
+			allCheckoutRecords.add(new CheckoutEntry("143",members.get(2), allUsers.get(2),allBooks.get(1),LocalDate.now(), LocalDate.now()));
+			DataAccessFacade.loadCheckoutRecordMap(allCheckoutRecords);
+	};
+	@SuppressWarnings("serial")
 	List<Address> addresses = new ArrayList<Address>() {
 		{
 			add(new Address("101 S. Main", "Fairfield", "IA", "52556"));
@@ -109,4 +131,5 @@ public class TestData {
 			add(new User("ghi", "ghi", Auth.LIBRARIAN));
 		}
 	};
+	
 }

@@ -10,13 +10,14 @@ import java.util.HashMap;
 import java.util.List;
 
 import Library_Management_System.business.Book;
+import Library_Management_System.business.CheckoutEntry;
 import Library_Management_System.business.LibraryMember;
 
 
 public class DataAccessFacade implements DataAccess {
 	
 	enum StorageType {
-		BOOKS, MEMBERS, USERS;
+		CHECKOUT, BOOKS, MEMBERS, USERS;
 	}
 	// Windows user can use
 	
@@ -60,6 +61,12 @@ public class DataAccessFacade implements DataAccess {
 		return (HashMap<String, User>)readFromStorage(StorageType.USERS);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public HashMap<String, CheckoutEntry> readCheckoutRecordMap() {
+		//Returns a Map with name/value pairs being
+		//   userId -> User
+		return (HashMap<String, CheckoutEntry>)readFromStorage(StorageType.CHECKOUT);
+	}
 	
 	/////load methods - these place test data into the storage area
 	///// - used just once at startup  
@@ -80,6 +87,12 @@ public class DataAccessFacade implements DataAccess {
 		HashMap<String, LibraryMember> members = new HashMap<String, LibraryMember>();
 		memberList.forEach(member -> members.put(member.getMemberId(), member));
 		saveToStorage(StorageType.MEMBERS, members);
+	}
+	
+	static void loadCheckoutRecordMap(List<CheckoutEntry> checkoutEntryList) {
+		HashMap<String, CheckoutEntry> checkoutEntries = new HashMap<String, CheckoutEntry>();
+		checkoutEntryList.forEach(checkoutEntry -> checkoutEntries.put(checkoutEntry.getReocordId(), checkoutEntry));
+		saveToStorage(StorageType.CHECKOUT, checkoutEntries);
 	}
 	
 	static void saveToStorage(StorageType type, Object ob) {
