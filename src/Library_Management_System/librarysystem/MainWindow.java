@@ -21,12 +21,13 @@ import javax.swing.JPasswordField;
 import Library_Management_System.controller.SystemController;
 import Library_Management_System.controller.ControllerInterface;
 
-public class MainWindow {
+public class MainWindow implements WindowManager {
 
 	private JFrame frame;
 	private JTextField textField;
 	private JPasswordField passwordField;
     private ControllerInterface ci = new SystemController();
+    private DashboardWindow db = new DashboardWindow();
 
 	/**
 	 * Launch the application.
@@ -47,10 +48,18 @@ public class MainWindow {
 	/**
 	 * Create the application.
 	 */
+	
 	public MainWindow() {
 		initialize();
 	}
 
+	/**
+	 * Enable/Disable this frames visibility
+	 */
+	public void setVisible(boolean b) {
+		frame.setVisible(b);
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -68,6 +77,8 @@ public class MainWindow {
 				boolean loginStatus = ci.login(textField.getText(), passwordField.getText());
 				if(loginStatus) {
 					JOptionPane.showMessageDialog(null,"Successful Login!");
+					frame.setVisible(false);
+					db.setVisible(true);
 				}else {
 					JOptionPane.showMessageDialog(null,"Login Failed!");
 				}
