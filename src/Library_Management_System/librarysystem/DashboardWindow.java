@@ -37,8 +37,9 @@ public class DashboardWindow implements WindowManager{
 	private JPanel panelViewMember;
 	private JPanel panelViewBook;
 	private JPanel panelAddMember;
+	private JPanel panelAddBook;
 	private JPanel panelLogout;
-	private JButton btnCheckoutBook_2_1;
+	//private JButton btnCheckoutBook_2_1;
 	
 
 	
@@ -105,15 +106,6 @@ public class DashboardWindow implements WindowManager{
 		frame.getContentPane().add(panelTab);
 		panelTab.setLayout(null);
 		
-		JButton btnCheckoutBook = new JButton("Checkout Record");
-		btnCheckoutBook.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanels(panelCheckoutRecord);
-			}
-		});
-		btnCheckoutBook.setBounds(181, 12, 157, 51);
-		panelTab.add(btnCheckoutBook);
-		
 		JButton btnViewMemebers = new JButton("View Memebers");
 		btnViewMemebers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -124,7 +116,7 @@ public class DashboardWindow implements WindowManager{
 		btnViewMemebers.setBounds(666, 12, 146, 51);
 		panelTab.add(btnViewMemebers);
 		
-		btnCheckoutBook_2_1 = new JButton("View Books");
+		JButton btnCheckoutBook_2_1 = new JButton("View Books");
 		btnCheckoutBook_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(panelViewBook);
@@ -145,12 +137,13 @@ public class DashboardWindow implements WindowManager{
 		JButton btnAddBook = new JButton("Add Book");
 		btnAddBook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				switchPanels(panelAddBook);
 			}
 		});
-		btnAddBook.setBounds(350, 12, 131, 51);
+		btnAddBook.setBounds(344, 12, 131, 51);
 		panelTab.add(btnAddBook);
 		
-		JButton btnMembers = new JButton("Add Members");
+		JButton btnMembers = new JButton("Add Book Copy");
 		btnMembers.setBounds(497, 12, 157, 51);
 		panelTab.add(btnMembers);
 		
@@ -162,7 +155,7 @@ public class DashboardWindow implements WindowManager{
 				switchPanels(panelCheckoutBook);
 			}
 		});
-		btnCheckoutBook_2.setBounds(12, 12, 157, 51);
+		btnCheckoutBook_2.setBounds(10, 12, 157, 51);
 		panelTab.add(btnCheckoutBook_2);
 		
 		layeredPane = new JLayeredPane();
@@ -183,6 +176,11 @@ public class DashboardWindow implements WindowManager{
 		JLabel lblCheckoutMember = new JLabel("Checkout Member");
 		lblCheckoutMember.setBounds(328, 333, 373, 149);
 		panelCheckoutRecord.add(lblCheckoutMember);
+		
+		panelAddBook = new PanelAddBook();
+		panelAddBook.setBackground(new Color(245, 222, 179));
+		layeredPane.add(panelAddBook);
+		panelAddBook.setLayout(null);
 		
 		panelViewMember = new JPanel();
 		panelViewMember.setBackground(Color.ORANGE);
