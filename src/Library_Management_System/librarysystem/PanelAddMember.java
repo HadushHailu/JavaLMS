@@ -10,8 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import Library_Management_System.business.Address;
 import Library_Management_System.business.Author;
 import Library_Management_System.business.Book;
+import Library_Management_System.business.LibraryMember;
 import Library_Management_System.controller.ControllerInterface;
 import Library_Management_System.controller.SystemController;
 
@@ -24,25 +26,25 @@ public class PanelAddMember extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtMemberId;
-	private JTable table;
 	private DefaultTableModel model;
 	private  ControllerInterface ci = new SystemController();
 	private JTextField txtFirstName;
 	private JTextField txtLastName;
-	private JTextField textField;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField txtTel;
+	private JTextField txtStreet;
+	private JTextField txtZip;
+	private JTextField txtState;
+	private JTextField txtCity;
+	private JTable table;
 
 	/**
 	 * Create the panel.
 	 */
 	public void initJTable() {
 		model = new DefaultTableModel();
-		String[] column = {"ID","Book Name","Author"};
-		model.setColumnIdentifiers(column);
+		String[] column = {"Member ID","First Name","Last Name", "Tel", "Address"};
 		table.setModel(model);
+		model.setColumnIdentifiers(column);
 		viewBook();
 	}
 	
@@ -51,22 +53,22 @@ public class PanelAddMember extends JPanel {
 	 * View Book
 	 */
 	public void viewBook() {
-		List<Book> bookList = ci.allBooks();
-		String[] row = new String[3];
-		for(int i = 0; i < 10; i++) {
- 		for(Book book: bookList) {
-			System.out.println(book.getIsbn());
+		model.setRowCount(0);
+		List<LibraryMember> memberList = ci.allMembers();
+		System.out.println(memberList.size());
+		String[] row = new String[5];
+	
+ 		for(LibraryMember member: memberList) {
+			row[0] = member.getMemberId();
+			row[1] = member.getFirstName();
+			row[2] = member.getLastName();
+			row[3] = member.getTelephone();
 			
 			//Authors
-			row[0] = "";
-			for(Author s: book.getAuthors())
-				row[0] += s.getFirstName();
-			//IDs
-			row[1] = book.getTitle();
-			row[2] = book.getIsbn();
+			row[4] = member.getAddress().getStreet() + " " + member.getAddress().getState();
 			model.addRow(row);
 		}
-		}
+		
 	}
 	
 	public PanelAddMember() {
@@ -93,8 +95,8 @@ public class PanelAddMember extends JPanel {
 		txtMemberId = new JTextField();
 		txtMemberId.setBounds(81, 8, 97, 19);
 		panel_2.add(txtMemberId);
-		txtMemberId.setText("1004");
-		txtMemberId.setEnabled(false);
+//		txtMemberId.setText("1004");
+//		txtMemberId.setEnabled(false);
 		txtMemberId.setColumns(10);
 		
 		JLabel lblFirstName = new JLabel("First Name");
@@ -119,10 +121,10 @@ public class PanelAddMember extends JPanel {
 		lblContactNumber.setBounds(670, 11, 62, 15);
 		panel_2.add(lblContactNumber);
 		
-		textField = new JTextField();
-		textField.setBounds(739, 8, 137, 20);
-		panel_2.add(textField);
-		textField.setColumns(10);
+		txtTel = new JTextField();
+		txtTel.setBounds(739, 8, 137, 20);
+		panel_2.add(txtTel);
+		txtTel.setColumns(10);
 		
 		JPanel panel_2_1 = new JPanel();
 		panel_2_1.setBounds(23, 84, 912, 36);
@@ -133,37 +135,37 @@ public class PanelAddMember extends JPanel {
 		lblState.setBounds(10, 11, 54, 15);
 		panel_2_1.add(lblState);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(74, 8, 97, 18);
-		panel_2_1.add(textField_1);
+		txtState = new JTextField();
+		txtState.setColumns(10);
+		txtState.setBounds(74, 8, 97, 18);
+		panel_2_1.add(txtState);
 		
 		JLabel lblCity = new JLabel("City");
 		lblCity.setBounds(216, 11, 31, 15);
 		panel_2_1.add(lblCity);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(257, 8, 127, 18);
-		panel_2_1.add(textField_2);
+		txtCity = new JTextField();
+		txtCity.setColumns(10);
+		txtCity.setBounds(257, 8, 127, 18);
+		panel_2_1.add(txtCity);
 		
 		JLabel lblStreet = new JLabel("Street");
 		lblStreet.setBounds(419, 11, 54, 15);
 		panel_2_1.add(lblStreet);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(470, 9, 115, 18);
-		panel_2_1.add(textField_3);
-		textField_3.setColumns(10);
+		txtStreet = new JTextField();
+		txtStreet.setBounds(470, 9, 115, 18);
+		panel_2_1.add(txtStreet);
+		txtStreet.setColumns(10);
 		
 		JLabel lblZipcode = new JLabel("Zip Code");
 		lblZipcode.setBounds(616, 11, 54, 15);
 		panel_2_1.add(lblZipcode);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(691, 9, 127, 18);
-		panel_2_1.add(textField_4);
-		textField_4.setColumns(10);
+		txtZip = new JTextField();
+		txtZip.setBounds(691, 9, 127, 18);
+		panel_2_1.add(txtZip);
+		txtZip.setColumns(10);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(25, 160, 1151, 42);
@@ -171,19 +173,33 @@ public class PanelAddMember extends JPanel {
 		panel_1.setLayout(null);
 		
 		JButton btnAdd = new JButton("Add");
-		btnAdd.setBounds(10, 11, 59, 25);
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ci.addMember(txtMemberId.getText(),
+						txtFirstName.getText(),
+						txtLastName.getText(),
+						txtTel.getText(),
+						txtStreet.getText(),
+						txtCity.getText(),
+						txtState.getText(),
+						txtZip.getText());
+				viewBook();	
+			}
+			
+		});
+		btnAdd.setBounds(10, 11, 110, 25);
 		panel_1.add(btnAdd);
 		
 		JButton btnClear = new JButton("Clear");
-		btnClear.setBounds(79, 11, 89, 25);
+		btnClear.setBounds(147, 11, 89, 25);
 		panel_1.add(btnClear);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(25, 219, 1141, 268);
+		scrollPane.setBounds(25, 219, 1141, 474);
 		add(scrollPane);
 		
 		table = new JTable();
-		scrollPane.setColumnHeaderView(table);
+		scrollPane.setViewportView(table);
 		
 		initJTable();
 

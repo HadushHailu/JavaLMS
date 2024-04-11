@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import Library_Management_System.business.Address;
 import Library_Management_System.business.Book;
 import Library_Management_System.business.LibraryMember;
 import Library_Management_System.dataaccess.Auth;
@@ -30,6 +31,16 @@ public class SystemController implements ControllerInterface {
 		return true;
 		
 	}
+	
+	@Override
+	public List<LibraryMember> allMembers(){
+		DataAccess da = new DataAccessFacade();
+		List<LibraryMember> retval = new ArrayList();
+		System.out.println("allMembers hashmap: " + da.readMemberMap());
+		retval.addAll(da.readMemberMap().values());
+		System.out.println("allMembers " + retval.size());
+		return retval;
+	}
 	@Override
 	public List<String> allMemberIds() {
 		DataAccess da = new DataAccessFacade();
@@ -54,10 +65,17 @@ public class SystemController implements ControllerInterface {
 		return retval;
 	}
 	@Override
-	public void addMember(LibraryMember meber){
-		HashMap<String, LibraryMember> loadData = new HashMap<>();
-		loadData.put(meber.getMemberId(), meber);
-		//DataAccess.loadMemberMap(loadData);
+	public void addMember(String memberID,
+			  String firstName, String lastName,
+			  String tel, String street, String city, String state,
+			  String zip){
+		List<LibraryMember> lm = new ArrayList<>(){
+			{
+			add(new LibraryMember(memberID, firstName, lastName, tel, new Address(street, city, state, zip)));
+			}
+		};
+		
+		DataAccessFacade.loadMemberMap(lm);
 	}
 }
 
