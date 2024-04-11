@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import Library_Management_System.business.Book;
 import Library_Management_System.dataaccess.Auth;
 import Library_Management_System.dataaccess.DataAccess;
 import Library_Management_System.dataaccess.DataAccessFacade;
@@ -12,6 +13,7 @@ import Library_Management_System.dataaccess.User;
 public class SystemController implements ControllerInterface {
 	public static Auth currentAuth = null;
 	
+	@Override
 	public boolean login(String id, String password){
 		DataAccess da = new DataAccessFacade();
 		HashMap<String, User> map = da.readUserMap();
@@ -40,6 +42,14 @@ public class SystemController implements ControllerInterface {
 		DataAccess da = new DataAccessFacade();
 		List<String> retval = new ArrayList<>();
 		retval.addAll(da.readBooksMap().keySet());
+		return retval;
+	}
+	
+	@Override
+	public List<Book> allBooks(){
+		DataAccess da = new DataAccessFacade();
+		List<Book> retval = new ArrayList<>();
+		retval.addAll(da.readBooksMap().values());
 		return retval;
 	}
 	

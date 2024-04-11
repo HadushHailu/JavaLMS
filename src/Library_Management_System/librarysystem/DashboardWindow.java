@@ -32,14 +32,16 @@ public class DashboardWindow implements WindowManager{
 
 	private JFrame frame;
 	private JLayeredPane layeredPane;
-	JPanel panelCheckoutRecord;
-	JPanel panelCheckoutBook;
-	JPanel panelViewMember;
-	JPanel panelViewBook;
-	JPanel panelSearch;
-	JPanel panelLogout;
+	private JPanel panelCheckoutRecord;
+	private JPanel panelCheckoutBook;
+	private JPanel panelViewMember;
+	private JPanel panelViewBook;
+	private JPanel panelAddMember;
+	private JPanel panelLogout;
+	private JButton btnCheckoutBook_2_1;
 	
 
+	
 	/**
 	 * Launch the application.
 	 */
@@ -122,7 +124,7 @@ public class DashboardWindow implements WindowManager{
 		btnViewMemebers.setBounds(666, 12, 146, 51);
 		panelTab.add(btnViewMemebers);
 		
-		JButton btnCheckoutBook_2_1 = new JButton("View Books");
+		btnCheckoutBook_2_1 = new JButton("View Books");
 		btnCheckoutBook_2_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(panelViewBook);
@@ -131,10 +133,10 @@ public class DashboardWindow implements WindowManager{
 		btnCheckoutBook_2_1.setBounds(824, 12, 146, 51);
 		panelTab.add(btnCheckoutBook_2_1);
 		
-		JButton btnCheckoutBook_2_1_1 = new JButton("Search ");
+		JButton btnCheckoutBook_2_1_1 = new JButton("Add Member ");
 		btnCheckoutBook_2_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(panelSearch);
+				switchPanels(panelAddMember);
 			}
 		});
 		btnCheckoutBook_2_1_1.setBounds(984, 12, 107, 51);
@@ -191,19 +193,19 @@ public class DashboardWindow implements WindowManager{
 		lblViewMember.setBounds(317, 338, 373, 149);
 		panelViewMember.add(lblViewMember);
 		
-		panelViewBook = new JPanel();
+		panelViewBook = new PanelViewBook();
 		panelViewBook.setBackground(new Color(245, 222, 179));
-		layeredPane.add(panelViewBook, "name_22655784066342");
+		layeredPane.add(panelViewBook);
 		panelViewBook.setLayout(null);
 		
 		JLabel lblViewBook = new JLabel("Search");
 		lblViewBook.setBounds(245, 318, 373, 149);
 		panelViewBook.add(lblViewBook);
 		
-		panelSearch = new JPanel();
-		panelSearch.setBackground(new Color(224, 255, 255));
-		layeredPane.add(panelSearch, "name_22660738656236");
-		panelSearch.setLayout(null);
+		panelAddMember = new PanelAddMember();
+		panelAddMember.setBackground(new Color(224, 255, 255));
+		layeredPane.add(panelAddMember);
+		panelAddMember.setLayout(null);
 		
 		panelLogout = new PanelLogout();
 		panelLogout.setBackground(new Color(224, 0, 0));
@@ -212,7 +214,7 @@ public class DashboardWindow implements WindowManager{
 		
 		JLabel lblLogoutPanel_1 = new JLabel("Logout search");
 		lblLogoutPanel_1.setBounds(194, 275, 373, 149);
-		panelSearch.add(lblLogoutPanel_1);
+		panelAddMember.add(lblLogoutPanel_1);
 		
 		ImageIcon image = new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-user-100.png");
 		JLabel lblAuthoIcon = new JLabel(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/user(2).png"));
