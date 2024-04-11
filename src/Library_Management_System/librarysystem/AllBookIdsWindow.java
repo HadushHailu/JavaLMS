@@ -11,7 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Library_Management_System.business.*;
+import Library_Management_System.controller.SystemController;
+import Library_Management_System.controller.ControllerInterface;
 
 
 public class AllBookIdsWindow extends JFrame implements LibWindow {

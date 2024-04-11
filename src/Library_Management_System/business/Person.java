@@ -8,11 +8,11 @@ public class Person implements Serializable {
 	private String lastName;
 	private String telephone;
 	private Address address;
-	public Person(String f, String l, String t, Address a) {
-		firstName = f;
-		lastName = l;
-		telephone = t;
-		address = a;
+	public Person(String firstName, String lastName, String telephone, Address address) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.telephone = telephone;
+		this.address = address;
 	}
 	public String getFirstName() {
 		return firstName;
