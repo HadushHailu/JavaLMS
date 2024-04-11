@@ -106,32 +106,13 @@ public class DashboardWindow implements WindowManager{
 		frame.getContentPane().add(panelTab);
 		panelTab.setLayout(null);
 		
-		JButton btnViewMemebers = new JButton("View Memebers");
-		btnViewMemebers.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanels(panelViewMember);
-			}
-			
-		});
-		btnViewMemebers.setBounds(666, 12, 146, 51);
-		panelTab.add(btnViewMemebers);
-		
-		JButton btnCheckoutBook_2_1 = new JButton("View Books");
-		btnCheckoutBook_2_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanels(panelViewBook);
-			}
-		});
-		btnCheckoutBook_2_1.setBounds(824, 12, 146, 51);
-		panelTab.add(btnCheckoutBook_2_1);
-		
 		JButton btnCheckoutBook_2_1_1 = new JButton("Add Member ");
 		btnCheckoutBook_2_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(panelAddMember);
 			}
 		});
-		btnCheckoutBook_2_1_1.setBounds(984, 12, 107, 51);
+		btnCheckoutBook_2_1_1.setBounds(904, 12, 207, 51);
 		panelTab.add(btnCheckoutBook_2_1_1);
 		
 		JButton btnAddBook = new JButton("Add Book");
@@ -140,11 +121,11 @@ public class DashboardWindow implements WindowManager{
 				switchPanels(panelAddBook);
 			}
 		});
-		btnAddBook.setBounds(344, 12, 131, 51);
+		btnAddBook.setBounds(321, 12, 207, 51);
 		panelTab.add(btnAddBook);
 		
 		JButton btnMembers = new JButton("Add Book Copy");
-		btnMembers.setBounds(497, 12, 157, 51);
+		btnMembers.setBounds(620, 12, 212, 51);
 		panelTab.add(btnMembers);
 		
 		JButton btnCheckoutBook_2 = new JButton("Checkout Book");
@@ -155,7 +136,7 @@ public class DashboardWindow implements WindowManager{
 				switchPanels(panelCheckoutBook);
 			}
 		});
-		btnCheckoutBook_2.setBounds(10, 12, 157, 51);
+		btnCheckoutBook_2.setBounds(10, 12, 220, 51);
 		panelTab.add(btnCheckoutBook_2);
 		
 		layeredPane = new JLayeredPane();
