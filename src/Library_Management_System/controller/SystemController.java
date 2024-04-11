@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import Library_Management_System.business.Book;
+import Library_Management_System.business.LibraryMember;
 import Library_Management_System.dataaccess.Auth;
 import Library_Management_System.dataaccess.DataAccess;
 import Library_Management_System.dataaccess.DataAccessFacade;
@@ -52,7 +53,11 @@ public class SystemController implements ControllerInterface {
 		retval.addAll(da.readBooksMap().values());
 		return retval;
 	}
-	
-	
+	@Override
+	public void addMember(LibraryMember meber){
+		HashMap<String, LibraryMember> loadData = new HashMap<>();
+		loadData.put(meber.getMemberId(), meber);
+		//DataAccess.loadMemberMap(loadData);
+	}
 }
 

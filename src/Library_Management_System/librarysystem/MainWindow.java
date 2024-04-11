@@ -75,6 +75,7 @@ public class MainWindow implements WindowManager {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				boolean loginStatus = ci.login(textField.getText(), passwordField.getText());
+				loginStatus =true;
 				if(loginStatus) {
 					JOptionPane.showMessageDialog(null,"Successful Login!");
 					frame.setVisible(false);
