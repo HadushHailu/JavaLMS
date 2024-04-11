@@ -7,12 +7,26 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.UIManager;
 import javax.swing.JLayeredPane;
+import javax.swing.ImageIcon;
 import java.awt.CardLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Toolkit;
+import java.awt.Image;
+import java.awt.Font;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.BorderFactory;
+import javax.swing.JToolBar;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.border.EtchedBorder;
+
 
 public class DashboardWindow implements WindowManager{
 
@@ -42,11 +56,21 @@ public class DashboardWindow implements WindowManager{
 		});
 	}
 
+	public static void centerFrameOnDesktop(Component f) {
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		int height = toolkit.getScreenSize().height;
+		int width = toolkit.getScreenSize().width;
+		int frameHeight = f.getSize().height;
+		int frameWidth = f.getSize().width;
+		f.setLocation(((width - frameWidth) / 2), (height - frameHeight) / 3);
+	}
+	
 	/**
 	 * Create the application.
 	 */
 	public DashboardWindow() {
 		initialize();
+		centerFrameOnDesktop(frame);
 	}
 	
 	/**
@@ -68,15 +92,16 @@ public class DashboardWindow implements WindowManager{
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1363, 981);
+		frame.getContentPane().setBackground(new Color(238, 238, 236));
+		frame.setBounds(100, 100, 1300, 1020);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(UIManager.getColor("Button.focus"));
-		panel.setBounds(12, 29, 231, 903);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
+		JPanel panelTab = new JPanel();
+		panelTab.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+		panelTab.setBounds(33, 170, 1234, 79);
+		frame.getContentPane().add(panelTab);
+		panelTab.setLayout(null);
 		
 		JButton btnCheckoutBook = new JButton("Checkout Record");
 		btnCheckoutBook.addActionListener(new ActionListener() {
@@ -84,17 +109,8 @@ public class DashboardWindow implements WindowManager{
 				switchPanels(panelCheckoutRecord);
 			}
 		});
-		btnCheckoutBook.setBounds(23, 252, 184, 37);
-		panel.add(btnCheckoutBook);
-		
-		JButton btnCheckoutBook_1 = new JButton("Checkout Book");
-		btnCheckoutBook_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanels(panelCheckoutRecord);
-			}
-		});
-		btnCheckoutBook_1.setBounds(23, 159, 184, 37);
-		panel.add(btnCheckoutBook_1);
+		btnCheckoutBook.setBounds(181, 12, 157, 51);
+		panelTab.add(btnCheckoutBook);
 		
 		JButton btnViewMemebers = new JButton("View Memebers");
 		btnViewMemebers.addActionListener(new ActionListener() {
@@ -103,8 +119,8 @@ public class DashboardWindow implements WindowManager{
 			}
 			
 		});
-		btnViewMemebers.setBounds(23, 361, 184, 37);
-		panel.add(btnViewMemebers);
+		btnViewMemebers.setBounds(666, 12, 146, 51);
+		panelTab.add(btnViewMemebers);
 		
 		JButton btnCheckoutBook_2_1 = new JButton("View Books");
 		btnCheckoutBook_2_1.addActionListener(new ActionListener() {
@@ -112,8 +128,8 @@ public class DashboardWindow implements WindowManager{
 				switchPanels(panelViewBook);
 			}
 		});
-		btnCheckoutBook_2_1.setBounds(23, 464, 184, 37);
-		panel.add(btnCheckoutBook_2_1);
+		btnCheckoutBook_2_1.setBounds(824, 12, 146, 51);
+		panelTab.add(btnCheckoutBook_2_1);
 		
 		JButton btnCheckoutBook_2_1_1 = new JButton("Search ");
 		btnCheckoutBook_2_1_1.addActionListener(new ActionListener() {
@@ -121,32 +137,42 @@ public class DashboardWindow implements WindowManager{
 				switchPanels(panelSearch);
 			}
 		});
-		btnCheckoutBook_2_1_1.setBounds(23, 587, 184, 37);
-		panel.add(btnCheckoutBook_2_1_1);
+		btnCheckoutBook_2_1_1.setBounds(984, 12, 107, 51);
+		panelTab.add(btnCheckoutBook_2_1_1);
 		
-		JButton btnCheckoutBook_2_1_1_1 = new JButton("Logout");
-		btnCheckoutBook_2_1_1_1.addActionListener(new ActionListener() {
+		JButton btnAddBook = new JButton("Add Book");
+		btnAddBook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(panelSearch);
 			}
 		});
-		btnCheckoutBook_2_1_1_1.setBounds(23, 709, 184, 37);
-		panel.add(btnCheckoutBook_2_1_1_1);
+		btnAddBook.setBounds(350, 12, 131, 51);
+		panelTab.add(btnAddBook);
+		
+		JButton btnMembers = new JButton("Add Members");
+		btnMembers.setBounds(497, 12, 157, 51);
+		panelTab.add(btnMembers);
+		
+		JButton btnCheckoutBook_2 = new JButton("Checkout Book");
+		//btnCheckoutBook_2.setBorder(BorderFactory.createLineBorder(Color.blue));
+		//btnCheckoutBook_2.setBackground(new Color(255, 228, 196));
+		btnCheckoutBook_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanels(panelCheckoutBook);
+			}
+		});
+		btnCheckoutBook_2.setBounds(12, 12, 157, 51);
+		panelTab.add(btnCheckoutBook_2);
 		
 		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(255, 29, 1064, 893);
+		layeredPane.setBounds(33, 261, 1234, 699);
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
-		panelCheckoutBook = new JPanel();
+		panelCheckoutBook = new PanelCheckoutBook();
 		panelCheckoutBook.setBackground(new Color(252, 233, 79));
-		layeredPane.add(panelCheckoutBook, "name_22549706918724");
+		layeredPane.add(panelCheckoutBook);
 		panelCheckoutBook.setLayout(null);
-		
-		JLabel lblCheckoutBook = new JLabel("Checkout Book");
-		lblCheckoutBook.setBounds(356, 339, 373, 149);
-		panelCheckoutBook.add(lblCheckoutBook);
-		
+			
 		panelCheckoutRecord = new JPanel();
 		panelCheckoutRecord.setBackground(new Color(114, 159, 207));
 		layeredPane.add(panelCheckoutRecord, "name_22646448329131");
@@ -179,17 +205,47 @@ public class DashboardWindow implements WindowManager{
 		layeredPane.add(panelSearch, "name_22660738656236");
 		panelSearch.setLayout(null);
 		
-		JLabel lblLogoutPanel_1 = new JLabel("Logout Panel");
+		panelLogout = new PanelLogout();
+		panelLogout.setBackground(new Color(224, 0, 0));
+		layeredPane.add(panelLogout);
+		panelLogout.setLayout(null);
+		
+		JLabel lblLogoutPanel_1 = new JLabel("Logout search");
 		lblLogoutPanel_1.setBounds(194, 275, 373, 149);
 		panelSearch.add(lblLogoutPanel_1);
 		
-		panelLogout = new JPanel();
-		panelLogout.setBackground(new Color(238, 232, 170));
-		layeredPane.add(panelLogout, "name_22663689985961");
-		panelLogout.setLayout(null);
+		ImageIcon image = new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-user-100.png");
+		JLabel lblAuthoIcon = new JLabel(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/user(2).png"));
+		lblAuthoIcon.setBounds(1121, 28, 76, 64);
+		frame.getContentPane().add(lblAuthoIcon);
 		
-		JLabel lblLogoutPanel = new JLabel("Logout Panel");
-		lblLogoutPanel.setBounds(234, 330, 373, 149);
-		panelLogout.add(lblLogoutPanel);
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/Double-J-Design-Ravenna-3d-Books.128.png"));
+		lblNewLabel_1.setBounds(536, 0, 146, 158);
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		JLabel lblLibray = new JLabel("Libray");
+		lblLibray.setForeground(new Color(210, 105, 30));
+		lblLibray.setFont(new Font("FreeSans", Font.BOLD, 50));
+		lblLibray.setBounds(665, 36, 167, 46);
+		frame.getContentPane().add(lblLibray);
+		
+		JLabel lblManagement = new JLabel("Management System ®");
+		lblManagement.setForeground(new Color(46, 139, 87));
+		lblManagement.setFont(new Font("FreeSans", Font.BOLD, 18));
+		lblManagement.setBounds(675, 85, 204, 28);
+		frame.getContentPane().add(lblManagement);
+		
+		JLabel lblLibrarian = new JLabel("Librarian");
+		lblLibrarian.setBounds(1197, 30, 70, 28);
+		frame.getContentPane().add(lblLibrarian);
+		
+		JLabel lblLogout = new JLabel("Logout");
+		lblLogout.setBounds(1197, 60, 70, 15);
+		frame.getContentPane().add(lblLogout);
+		
+//		JLabel lblLogoutPanel = new JLabel("Logout Panel");
+//		lblLogoutPanel.setBounds(234, 330, 373, 149);
+//		panelLogout.add(lblLogoutPanel);
 	}
 }
