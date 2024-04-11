@@ -9,8 +9,12 @@ import Library_Management_System.business.LibraryMember;
 public interface ControllerInterface {
 	public boolean login(String id, String password);
 	public List<String> allMemberIds();
+	public List<LibraryMember> allMembers();
 	public List<String> allBookIds();
 	public List<Book> allBooks();
-	public void addMember(LibraryMember meber);
+	public void addMember(String memberID,
+						  String firstName, String lastName,
+						  String tel, String street, String state, String city,
+						  String zip);
 }
 

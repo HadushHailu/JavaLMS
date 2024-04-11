@@ -1,4 +1,6 @@
 package Library_Management_System.dataaccess;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -6,11 +8,14 @@ import java.io.Serializable;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import Library_Management_System.business.Book;
 import Library_Management_System.business.CheckoutEntry;
+import Library_Management_System.business.LibraryMember;
 import Library_Management_System.business.LibraryMember;
 
 
@@ -72,30 +77,52 @@ public class DataAccessFacade implements DataAccess {
 	///// - used just once at startup  
 	
 		
-	static void loadBookMap(List<Book> bookList) {
+	public static void loadBookMap(List<Book> bookList) {
 		HashMap<String, Book> books = new HashMap<String, Book>();
 		bookList.forEach(book -> books.put(book.getIsbn(), book));
 		saveToStorage(StorageType.BOOKS, books);
 	}
-	static void loadUserMap(List<User> userList) {
+	public static void loadUserMap(List<User> userList) {
 		HashMap<String, User> users = new HashMap<String, User>();
 		userList.forEach(user -> users.put(user.getId(), user));
 		saveToStorage(StorageType.USERS, users);
 	}
  
-	static void loadMemberMap(List<LibraryMember> memberList) {
+	public static void loadMemberMap(List<LibraryMember> memberList) {
 		HashMap<String, LibraryMember> members = new HashMap<String, LibraryMember>();
 		memberList.forEach(member -> members.put(member.getMemberId(), member));
 		saveToStorage(StorageType.MEMBERS, members);
 	}
 	
-	static void loadCheckoutRecordMap(List<CheckoutEntry> checkoutEntryList) {
+	public static void loadCheckoutRecordMap(List<CheckoutEntry> checkoutEntryList) {
 		HashMap<String, CheckoutEntry> checkoutEntries = new HashMap<String, CheckoutEntry>();
 		checkoutEntryList.forEach(checkoutEntry -> checkoutEntries.put(checkoutEntry.getReocordId(), checkoutEntry));
 		saveToStorage(StorageType.CHECKOUT, checkoutEntries);
 	}
 	
 	static void saveToStorage(StorageType type, Object ob) {
+		HashMap<String, LibraryMember> oldvalMember;
+		HashMap<String, User> oldvalUser;
+		HashMap<String, Book> oldvalBooks;
+		
+		if(type == StorageType.MEMBERS) {
+		  oldvalMember =  (HashMap<String, LibraryMember>)readFromStorage(StorageType.MEMBERS);
+		  oldvalMember.putAll((HashMap<String, LibraryMember>)ob);
+		  ob = oldvalMember;
+		}
+		
+		if(type == StorageType.USERS) {
+		  oldvalUser =  (HashMap<String, User>)readFromStorage(StorageType.USERS);
+		  oldvalUser.putAll((HashMap<String, User>) ob);
+		  ob = oldvalUser;
+		}
+		
+		if(type == StorageType.BOOKS) {
+			oldvalBooks =  (HashMap<String,Book>) readFromStorage(StorageType.BOOKS);
+			oldvalBooks.putAll((HashMap<String,Book>) ob);
+			ob = oldvalBooks;
+		}
+		
 		ObjectOutputStream out = null;
 		try {
 			Path path = FileSystems.getDefault().getPath(OUTPUT_DIR, type.toString());
