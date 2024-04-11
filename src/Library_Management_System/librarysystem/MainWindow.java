@@ -11,15 +11,22 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JPasswordField;
+
+
+import Library_Management_System.controller.SystemController;
+import Library_Management_System.controller.ControllerInterface;
 
 public class MainWindow {
 
 	private JFrame frame;
 	private JTextField textField;
 	private JPasswordField passwordField;
+    private ControllerInterface ci = new SystemController();
 
 	/**
 	 * Launch the application.
@@ -58,6 +65,12 @@ public class MainWindow {
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				boolean loginStatus = ci.login(textField.getText(), passwordField.getText());
+				if(loginStatus) {
+					JOptionPane.showMessageDialog(null,"Successful Login!");
+				}else {
+					JOptionPane.showMessageDialog(null,"Login Failed!");
+				}
 			}
 		});
 		btnNewButton.setBounds(585, 412, 272, 41);

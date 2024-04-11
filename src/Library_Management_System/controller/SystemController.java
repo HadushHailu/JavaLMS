@@ -12,18 +12,19 @@ import Library_Management_System.dataaccess.User;
 public class SystemController implements ControllerInterface {
 	public static Auth currentAuth = null;
 	
-	public void login(String id, String password) throws LoginException {
+	public boolean login(String id, String password){
 		DataAccess da = new DataAccessFacade();
 		HashMap<String, User> map = da.readUserMap();
+		
 		if(!map.containsKey(id)) {
-			String err = "ID " + id + " not found";
-			throw new LoginException(err);
+			return false;
 		}
 		String passwordFound = map.get(id).getPassword();
 		if(!passwordFound.equals(password)) {
-			throw new LoginException("Password incorrect");
+			return false;
 		}
 		currentAuth = map.get(id).getAuthorization();
+		return true;
 		
 	}
 	@Override
