@@ -38,6 +38,7 @@ public class DashboardWindow implements WindowManager{
 	private JPanel panelViewBook;
 	private JPanel panelAddMember;
 	private JPanel panelAddBook;
+	private JPanel panelAddBookCopy;
 	private JPanel panelLogout;
 	//private JButton btnCheckoutBook_2_1;
 	
@@ -125,6 +126,11 @@ public class DashboardWindow implements WindowManager{
 		panelTab.add(btnAddBook);
 		
 		JButton btnMembers = new JButton("Add Book Copy");
+		btnMembers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchPanels(panelAddBookCopy);
+			}
+		});
 		btnMembers.setBounds(620, 12, 212, 51);
 		panelTab.add(btnMembers);
 		
@@ -162,6 +168,10 @@ public class DashboardWindow implements WindowManager{
 		panelAddBook.setBackground(new Color(245, 222, 179));
 		layeredPane.add(panelAddBook);
 		panelAddBook.setLayout(null);
+		
+		panelAddBookCopy = new PanelAddBookCopy();
+		layeredPane.add(panelAddBookCopy);
+		panelAddBookCopy.setLayout(null);
 		
 		panelViewMember = new JPanel();
 		panelViewMember.setBackground(Color.ORANGE);

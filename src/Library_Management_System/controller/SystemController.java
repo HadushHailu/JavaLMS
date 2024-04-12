@@ -64,6 +64,12 @@ public class SystemController implements ControllerInterface {
 		retval.addAll(da.readBooksMap().values());
 		return retval;
 	}
+	
+	@Override
+	public boolean addBookCopy(String isbn,int totolCopy) {
+		return false;
+	}
+	
 	@Override
 	public void addMember(String memberID,
 			  String firstName, String lastName,

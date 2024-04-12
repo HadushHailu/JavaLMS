@@ -12,6 +12,7 @@ public interface ControllerInterface {
 	public List<LibraryMember> allMembers();
 	public List<String> allBookIds();
 	public List<Book> allBooks();
+	public boolean addBookCopy(String isbn,int totolCopy);
 	public void addMember(String memberID,
 						  String firstName, String lastName,
 						  String tel, String street, String state, String city,
