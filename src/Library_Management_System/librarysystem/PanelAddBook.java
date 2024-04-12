@@ -4,24 +4,87 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+import Library_Management_System.business.Address;
+import Library_Management_System.business.Author;
+import Library_Management_System.business.Book;
+import Library_Management_System.business.LibraryMember;
+import Library_Management_System.controller.ControllerInterface;
+import Library_Management_System.controller.SystemController;
+
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class PanelAddBook extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textIsbn;
+	private JTextField texttitle;
+	private JTextField textTotalCopy;
 	private JLayeredPane layeredPane=new JLayeredPane();
+	private JTable table;
+	private DefaultTableModel model;
+	private AuthorsWindow authorWindow;
+	private List<Author> authorList = new ArrayList<>();
+	private  ControllerInterface ci = new SystemController();
 
 	/**
 	 * Create the panel.
 	 */
+	public void initJTable() {
+		model = new DefaultTableModel();
+		String[] column = {"Book ISBN","BOOK title","Number of Copies", "Length", "Author"};
+		table.setModel(model);
+		model.setColumnIdentifiers(column);
+		viewBook();
+	}
+	
+	/**
+	 * View Book
+	 */
+	public void viewBook() {
+		model.setRowCount(0);
+		List<Book> bookList = ci.allBooks();
+		
+		String[] row = new String[5];
+	
+ 		for(Book book: bookList) {
+			row[0] = book.getIsbn();
+			row[1] = book.getTitle();
+			row[2] = Integer.toString(book.getCopyNums().size());
+			row[3] = Integer.toString(book.getMaxCheckoutLength());
+			
+			//Authors
+			row[4] = "";
+			for(Author a: book.getAuthors()) {
+				row[4] += a.getFirstName() + ", ";
+			}
+			model.addRow(row);
+		}
+		
+	}
+	
+	public void setAuthors(String fname, String lname, 
+			               String tel, String street, String city, String state,
+			               String zip, String zipCode, String bio){
+		Author a = new Author(fname, lname, tel, new Address(street, city, state, zipCode), bio);
+		authorList.add(a);
+		authorWindow.setVisible(false);
+		
+	}
+	
 	public PanelAddBook() {
+		authorWindow = new AuthorsWindow(this);
+		
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -33,19 +96,19 @@ public class PanelAddBook extends JPanel {
 		lblNewLabel_1.setBounds(53, 39, 33, 14);
 		panel.add(lblNewLabel_1);
 		
-		textField = new JTextField();
-		textField.setBounds(169, 37, 115, 20);
-		panel.add(textField);
-		textField.setColumns(10);
+		textIsbn = new JTextField();
+		textIsbn.setBounds(169, 37, 115, 20);
+		panel.add(textIsbn);
+		textIsbn.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Title");
 		lblNewLabel_2.setBounds(441, 46, 46, 14);
 		panel.add(lblNewLabel_2);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(518, 37, 219, 34);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
+		texttitle = new JTextField();
+		texttitle.setBounds(518, 37, 219, 34);
+		panel.add(texttitle);
+		texttitle.setColumns(10);
 		
 		JRadioButton rdn7Days = new JRadioButton("7 days");
 		rdn7Days.setBounds(571, 95, 92, 23);
@@ -60,27 +123,40 @@ public class PanelAddBook extends JPanel {
 		panel.add(lblNewLabel_3);
 		
 		JLabel lblTotalCopies = new JLabel("Total Copies");
-		lblTotalCopies.setBounds(53, 81, 76, 20);
+		lblTotalCopies.setBounds(53, 81, 98, 20);
 		panel.add(lblTotalCopies);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(169, 82, 115, 20);
-		panel.add(textField_2);
-		textField_2.setColumns(10);
+		textTotalCopy = new JTextField();
+		textTotalCopy.setBounds(169, 82, 115, 20);
+		panel.add(textTotalCopy);
+		textTotalCopy.setColumns(10);
 		
 		JButton btnAddAuthors = new JButton("Add Author");
-		btnAddAuthors.setBounds(53, 151, 130, 34);
-		btnAddAuthors.setBackground(new Color(0, 100, 0));
+		btnAddAuthors.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-add-button-32.png"));
+		btnAddAuthors.setBounds(53, 151, 171, 34);
+		//btnAddAuthors.setBackground(new Color(0, 100, 0));
 		btnAddAuthors.setForeground(new Color(0, 0, 0));
 		btnAddAuthors.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//PanelAddAuthors
-				//layeredPane.add(new PanelAddAuthors());
+				authorWindow.setVisible(true);
 			}
 		});
 		panel.add(btnAddAuthors);
 		
 		JButton btnNewButton_1 = new JButton("Save");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int length = 7;
+				if(rdn7Days.isSelected()) {
+					length = 7;
+				}if(rdn21Days.isSelected()) {
+					length = 21;
+				}
+				ci.addBook(textIsbn.getText(), texttitle.getText(), 
+						Integer.parseInt(textTotalCopy.getText()), length, authorList);
+				viewBook();
+			}
+		});
 		btnNewButton_1.setBounds(53, 223, 161, 42);
 		panel.add(btnNewButton_1);
 		
@@ -96,10 +172,13 @@ public class PanelAddBook extends JPanel {
 		lblNewLabel_1_1.setBounds(345, 12, 115, 14);
 		panel.add(lblNewLabel_1_1);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(21, 356, 1166, 330);
-		add(panel_1);
-		panel_1.setLayout(null);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(21, 346, 1167, 340);
+		add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
 
+		initJTable();
 	}
 }
