@@ -11,7 +11,7 @@ final public class CheckoutEntry implements Serializable{
 	private String recordId;
 	private LibraryMember member;
 	private User user;
-	private Book book;
+	private BookCopy bookCopy;
 	private LocalDate chekoutDate;
 	private LocalDate dueDate;
 	private Penality penality;
@@ -19,18 +19,21 @@ final public class CheckoutEntry implements Serializable{
 	public CheckoutEntry( String recordId,
 			               LibraryMember member,
 					       User user,
-					       Book book, 
+					       BookCopy bookCopy, 
 					       LocalDate checkoutDate,
 					       LocalDate dueDate){
 		this.recordId = recordId;
 		this.member = member;
 		this.user = user;
-		this.book = book;
+		this.bookCopy = bookCopy;
 		this.chekoutDate = checkoutDate;
 		this.dueDate = dueDate;
 		member.addCheckoutRecord(this);
 	}
 	
+	public LocalDate getCheckoutDate() {
+		return chekoutDate;
+	}
 	public String getReocordId() {
 		return recordId;
 	}
@@ -42,8 +45,8 @@ final public class CheckoutEntry implements Serializable{
 	public User getUser() {
 		return user;
 	}
-	public Book getBook() {
-		return book;
+	public BookCopy getBookCopy() {
+		return bookCopy;
 	}
 	public LocalDate getDueDate() {
 		return dueDate;

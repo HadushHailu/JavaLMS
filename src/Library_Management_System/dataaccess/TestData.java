@@ -79,15 +79,16 @@ public class TestData {
 	
 	@SuppressWarnings("serial")
 	public void checkoutRecordData(){
-			System.out.println(members.size());
-			allCheckoutRecords.add(new CheckoutEntry("123",members.get(0), allUsers.get(0),allBooks.get(0),LocalDate.now(), LocalDate.now()));
-			allCheckoutRecords.add(new CheckoutEntry("124",members.get(1), allUsers.get(2),allBooks.get(1),LocalDate.now(), LocalDate.now()));
-			allCheckoutRecords.add(new CheckoutEntry("125",members.get(2), allUsers.get(2),allBooks.get(2),LocalDate.now(), LocalDate.now()));
-			allCheckoutRecords.add(new CheckoutEntry("126",members.get(2), allUsers.get(0),allBooks.get(3),LocalDate.now(), LocalDate.now()));
-			allCheckoutRecords.add(new CheckoutEntry("127",members.get(2), allUsers.get(0),allBooks.get(0),LocalDate.now(), LocalDate.now()));
-			allCheckoutRecords.add(new CheckoutEntry("128",members.get(1), allUsers.get(2),allBooks.get(2),LocalDate.now(), LocalDate.now()));
-			allCheckoutRecords.add(new CheckoutEntry("129",members.get(0), allUsers.get(0),allBooks.get(1),LocalDate.now(), LocalDate.now()));
-			allCheckoutRecords.add(new CheckoutEntry("143",members.get(2), allUsers.get(2),allBooks.get(1),LocalDate.now(), LocalDate.now()));
+//		    allBooks.get(0).getCopies().get(0).changeAvailability();
+//			System.out.println(members.size());
+//			allCheckoutRecords.add(new CheckoutEntry("123",members.get(0), allUsers.get(0),allBooks.get(0).getCopies().get(0),LocalDate.now(), LocalDate.now()));
+//			allCheckoutRecords.add(new CheckoutEntry("124",members.get(1), allUsers.get(2),allBooks.get(1).getCopies().get(0),LocalDate.now(), LocalDate.now()));
+//			allCheckoutRecords.add(new CheckoutEntry("125",members.get(2), allUsers.get(2),allBooks.get(2).getCopies().get(0),LocalDate.now(), LocalDate.now()));
+//			allCheckoutRecords.add(new CheckoutEntry("126",members.get(2), allUsers.get(0),allBooks.get(3).getCopies().get(0),LocalDate.now(), LocalDate.now()));
+//			allCheckoutRecords.add(new CheckoutEntry("127",members.get(2), allUsers.get(0),allBooks.get(0).getCopies().get(1),LocalDate.now(), LocalDate.now()));
+//			allCheckoutRecords.add(new CheckoutEntry("128",members.get(1), allUsers.get(2),allBooks.get(2).getCopies().get(1),LocalDate.now(), LocalDate.now()));
+//			allCheckoutRecords.add(new CheckoutEntry("129",members.get(0), allUsers.get(0),allBooks.get(1).getCopies().get(1),LocalDate.now(), LocalDate.now()));
+//			allCheckoutRecords.add(new CheckoutEntry("143",members.get(2), allUsers.get(2),allBooks.get(1).getCopies().get(2),LocalDate.now(), LocalDate.now()));
 			DataAccessFacade.loadCheckoutRecordMap(allCheckoutRecords);
 	};
 	@SuppressWarnings("serial")
@@ -117,10 +118,10 @@ public class TestData {
 	@SuppressWarnings("serial")
 	List<Book> allBooks = new ArrayList<Book>() {
 		{
-			add(new Book("23-11451", "The Big Fish", 1, 21, Arrays.asList(allAuthors.get(0), allAuthors.get(1))));
-			add(new Book("28-12331", "Antartica", 1, 7, Arrays.asList(allAuthors.get(2))));
-			add(new Book("99-22223", "Thinking Java", 1,  21, Arrays.asList(allAuthors.get(3))));
-			add(new Book("48-56882", "Jimmy's First Day of School", 1, 7, Arrays.asList(allAuthors.get(4))));		
+			add(new Book("23-11451", "The Big Fish", 3, 21, Arrays.asList(allAuthors.get(0), allAuthors.get(1))));
+			add(new Book("28-12331", "Antartica", 3, 7, Arrays.asList(allAuthors.get(2))));
+			add(new Book("99-22223", "Thinking Java", 3,  21, Arrays.asList(allAuthors.get(3))));
+			add(new Book("48-56882", "Jimmy's First Day of School", 3, 7, Arrays.asList(allAuthors.get(4))));		
 		}
 	};
 	

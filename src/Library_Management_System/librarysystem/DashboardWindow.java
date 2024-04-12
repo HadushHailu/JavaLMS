@@ -20,12 +20,20 @@ import java.awt.Image;
 import java.awt.Font;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
+
+import Library_Management_System.controller.ControllerInterface;
+import Library_Management_System.controller.SystemController;
+import Library_Management_System.dataaccess.Auth;
+import Library_Management_System.dataaccess.User;
+
 import javax.swing.BorderFactory;
 import javax.swing.JToolBar;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.border.EtchedBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class DashboardWindow implements WindowManager{
@@ -40,9 +48,22 @@ public class DashboardWindow implements WindowManager{
 	private JPanel panelAddBook;
 	private JPanel panelAddBookCopy;
 	private JPanel panelLogout;
-	//private JButton btnCheckoutBook_2_1;
+    private User session;
+    private  ControllerInterface ci = new SystemController();
+    
+    private MainWindow mainWindow;
+    
+    JButton btnCheckoutBook;
+    JButton btnAddMember;
+    JButton btnAddBook;
+    JButton btnBookCopy;
 	
+    JLabel lblSession;
 
+    public void logout() {
+    	mainWindow.getFrame().setVisible(true);
+    	frame.setVisible(false);
+    }
 	
 	/**
 	 * Launch the application.
@@ -77,13 +98,42 @@ public class DashboardWindow implements WindowManager{
 		centerFrameOnDesktop(frame);
 	}
 	
+	public void setSession() {
+		
+		System.out.println(session.getAuthorization());
+		
+		if(session.getAuthorization() == Auth.ADMIN) {
+			btnCheckoutBook.setEnabled(false);
+			lblSession.setText("ADMIN");
+		}
+		
+		if(session.getAuthorization() == Auth.LIBRARIAN) {
+		    btnAddMember.setEnabled(false);
+		    btnAddBook.setEnabled(false);
+		    btnBookCopy.setEnabled(false);	
+		    lblSession.setText("LIBRARIAN");
+		}
+		if(session.getAuthorization() == Auth.BOTH) {
+			lblSession.setText("SUPER");
+		}
+		
+	}
+	
 	/**
 	 * Enable/Disable this frames visibility
 	 */
 	public void setVisible(boolean b) {
 		frame.setVisible(b);
+		session = ((SystemController)ci).session;
+		setSession();
 	}
 	
+	public void toDashboard(boolean b, MainWindow mainWindow) {
+		frame.setVisible(b);
+		session = ((SystemController)ci).session;
+		setSession();
+		this.mainWindow = mainWindow;
+	}
 	public void switchPanels(JPanel panel) {
 		layeredPane.removeAll();
 		layeredPane.add(panel);
@@ -107,16 +157,16 @@ public class DashboardWindow implements WindowManager{
 		frame.getContentPane().add(panelTab);
 		panelTab.setLayout(null);
 		
-		JButton btnCheckoutBook_2_1_1 = new JButton("Add Member ");
-		btnCheckoutBook_2_1_1.addActionListener(new ActionListener() {
+		btnAddMember = new JButton("Add Member ");
+		btnAddMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(panelAddMember);
 			}
 		});
-		btnCheckoutBook_2_1_1.setBounds(904, 12, 207, 51);
-		panelTab.add(btnCheckoutBook_2_1_1);
+		btnAddMember.setBounds(904, 12, 207, 51);
+		panelTab.add(btnAddMember);
 		
-		JButton btnAddBook = new JButton("Add Book");
+		btnAddBook = new JButton("Add Book");
 		btnAddBook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(panelAddBook);
@@ -125,25 +175,25 @@ public class DashboardWindow implements WindowManager{
 		btnAddBook.setBounds(321, 12, 207, 51);
 		panelTab.add(btnAddBook);
 		
-		JButton btnMembers = new JButton("Add Book Copy");
-		btnMembers.addActionListener(new ActionListener() {
+		btnBookCopy = new JButton("Add Book Copy");
+		btnBookCopy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(panelAddBookCopy);
 			}
 		});
-		btnMembers.setBounds(620, 12, 212, 51);
-		panelTab.add(btnMembers);
+		btnBookCopy.setBounds(620, 12, 212, 51);
+		panelTab.add(btnBookCopy);
 		
-		JButton btnCheckoutBook_2 = new JButton("Checkout Book");
-		//btnCheckoutBook_2.setBorder(BorderFactory.createLineBorder(Color.blue));
-		//btnCheckoutBook_2.setBackground(new Color(255, 228, 196));
-		btnCheckoutBook_2.addActionListener(new ActionListener() {
+		btnCheckoutBook = new JButton("Checkout Book");
+		//btnCheckoutBook.setBorder(BorderFactory.createLineBorder(Color.blue));
+		//btnCheckoutBook.setBackground(new Color(255, 228, 196));
+		btnCheckoutBook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchPanels(panelCheckoutBook);
 			}
 		});
-		btnCheckoutBook_2.setBounds(10, 12, 220, 51);
-		panelTab.add(btnCheckoutBook_2);
+		btnCheckoutBook.setBounds(10, 12, 220, 51);
+		panelTab.add(btnCheckoutBook);
 		
 		layeredPane = new JLayeredPane();
 		layeredPane.setBounds(33, 261, 1234, 699);
@@ -227,11 +277,17 @@ public class DashboardWindow implements WindowManager{
 		lblManagement.setBounds(675, 85, 204, 28);
 		frame.getContentPane().add(lblManagement);
 		
-		JLabel lblLibrarian = new JLabel("Librarian");
-		lblLibrarian.setBounds(1197, 30, 70, 28);
-		frame.getContentPane().add(lblLibrarian);
+		lblSession = new JLabel("Librarian");
+		lblSession.setBounds(1197, 30, 70, 28);
+		frame.getContentPane().add(lblSession);
 		
 		JLabel lblLogout = new JLabel("Logout");
+		lblLogout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				logout();
+			}
+		});
 		lblLogout.setBounds(1197, 60, 70, 15);
 		frame.getContentPane().add(lblLogout);
 		
