@@ -45,5 +45,8 @@ public interface ControllerInterface {
 			int copyNum, int maxLength, List<Author> authors);
 	public void addBook(List<Book> books);
 	
+	//validation
+	
+	
 }
 

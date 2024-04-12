@@ -4,6 +4,8 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 
@@ -152,6 +154,16 @@ public class AuthorsWindow implements WindowManager{
 		JButton btnNewButton = new JButton("Add");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String errorMsg=UIValidationRuleSet.addAuthorValidation(textFieldFirstName.getText(), textFieldLastName.getText(), 
+						textFieldTel.getText(),textFieldState.getText(),textFieldCity.getText(), textFieldStreet.getText(), 
+						textFieldZip.getText()
+				);
+				
+				if(!errorMsg.isEmpty()) {
+					JOptionPane.showMessageDialog(null,errorMsg);
+					return;
+				}
+				
 				panelAddBook.setAuthors(textFieldFirstName.getText(), textFieldLastName.getText(), 
 						textFieldTel.getText(),textFieldStreet.getText(), textFieldCity.getText(), textFieldState.getText(),
 						textFieldZip.getText(), textArea.getText(), lblNewLabel_1_7.getText());

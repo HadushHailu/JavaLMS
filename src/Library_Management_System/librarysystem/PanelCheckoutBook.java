@@ -286,7 +286,7 @@ public class PanelCheckoutBook extends JPanel {
 		//btnSearch_1.setEnabled(false);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				logic2AddBook();
+				viewBookISBN();
 			}
 		});
 		
