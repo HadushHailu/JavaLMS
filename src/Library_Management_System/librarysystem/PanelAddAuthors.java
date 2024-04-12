@@ -5,6 +5,8 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PanelAddAuthors extends JPanel {
 
@@ -106,6 +108,11 @@ public class PanelAddAuthors extends JPanel {
 		panel.add(txtZipCode);
 		
 		JButton btnNewButton_2 = new JButton("Add");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnNewButton_2.setBounds(10, 150, 60, 23);
 		panel.add(btnNewButton_2);
 		

@@ -27,7 +27,6 @@ public class MainWindow implements WindowManager {
 	private JTextField textField;
 	private JPasswordField passwordField;
     private ControllerInterface ci = new SystemController();
-    private DashboardWindow db = new DashboardWindow();
 
 	/**
 	 * Launch the application.
@@ -74,14 +73,19 @@ public class MainWindow implements WindowManager {
 		btnNewButton.setForeground(Color.BLACK);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String errorMsg=UIValidationRuleSet.loginValidation(textField.getText(), passwordField.getText());
+				if(!errorMsg.isEmpty()) {
+					JOptionPane.showMessageDialog(null,errorMsg);
+					return;
+				}
 				boolean loginStatus = ci.login(textField.getText(), passwordField.getText());
-				loginStatus =true;
 				if(loginStatus) {
 					JOptionPane.showMessageDialog(null,"Successful Login!");
 					frame.setVisible(false);
+					DashboardWindow db = new DashboardWindow();
 					db.setVisible(true);
 				}else {
-					JOptionPane.showMessageDialog(null,"Login Failed!");
+					JOptionPane.showMessageDialog(null,"Invalid username or password!");
 				}
 			}
 		});

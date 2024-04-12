@@ -78,7 +78,7 @@ public class PanelCheckoutBook extends JPanel {
 				List<Book> bookList=ci.allBooks();
 				Book book=null;
 				for(i=0;i<bookList.size();i++) {
-					if(bookList.get(i).getIsbn().equals()){
+					if(bookList.get(i).getIsbn().equals(bookIsbn)){
 						book=bookList.get(i);
 						break;
 					}

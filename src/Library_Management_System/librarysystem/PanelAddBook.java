@@ -3,6 +3,7 @@ package Library_Management_System.librarysystem;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,6 +31,8 @@ public class PanelAddBook extends JPanel {
 	private JTextField textIsbn;
 	private JTextField texttitle;
 	private JTextField textTotalCopy;
+	private JRadioButton rdn7Days;
+	private JRadioButton rdn21Days;
 	private JLayeredPane layeredPane=new JLayeredPane();
 	private JTable table;
 	private DefaultTableModel model;
@@ -81,7 +84,14 @@ public class PanelAddBook extends JPanel {
 		authorWindow.setVisible(false);
 		
 	}
-	
+	public void clearBook() {
+		textIsbn.setText("");
+		texttitle.setText("");
+		textTotalCopy.setText("");
+		rdn7Days.setSelected(false);
+		authorList.clear();
+	}
+		
 	public PanelAddBook() {
 		authorWindow = new AuthorsWindow(this);
 		
@@ -110,11 +120,11 @@ public class PanelAddBook extends JPanel {
 		panel.add(texttitle);
 		texttitle.setColumns(10);
 		
-		JRadioButton rdn7Days = new JRadioButton("7 days");
+	    rdn7Days = new JRadioButton("7 days");
 		rdn7Days.setBounds(571, 95, 92, 23);
 		panel.add(rdn7Days);
 		
-		JRadioButton rdn21Days = new JRadioButton("21 days");
+	    rdn21Days = new JRadioButton("21 days");
 		rdn21Days.setBounds(667, 95, 115, 23);
 		panel.add(rdn21Days);
 		
@@ -152,17 +162,32 @@ public class PanelAddBook extends JPanel {
 				}if(rdn21Days.isSelected()) {
 					length = 21;
 				}
+				
+				String errorMsg=UIValidationRuleSet.addbookValidation(textIsbn.getText(), 
+						texttitle.getText(), 
+						textTotalCopy.getText(),
+						authorList);
+				
+				if(!errorMsg.isEmpty()) {
+					JOptionPane.showMessageDialog(null,errorMsg);
+					return;
+				}
+				
 				ci.addBook(textIsbn.getText(), texttitle.getText(), 
 						Integer.parseInt(textTotalCopy.getText()), length, authorList);
+				
+				clearBook();
 				viewBook();
 			}
 		});
+				
 		btnNewButton_1.setBounds(53, 223, 161, 42);
 		panel.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Clear");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				clearBook();
 				viewBook();
 			}
 		});

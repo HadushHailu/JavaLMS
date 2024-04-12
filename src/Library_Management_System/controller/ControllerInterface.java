@@ -22,5 +22,8 @@ public interface ControllerInterface {
 	public void addBook(String isbn, String title,
 			int copyNum, int maxLength, List<Author> authors);
 	
+	//validation
+	
+	
 }
 
