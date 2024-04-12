@@ -21,6 +21,7 @@ import Library_Management_System.dataaccess.User;
 
 public class SystemController implements ControllerInterface {
 	public static Auth currentAuth = null;
+	public static User session;
 	Random rand = new Random();
 	
 	@Override
@@ -35,6 +36,8 @@ public class SystemController implements ControllerInterface {
 		if(!passwordFound.equals(password)) {
 			return false;
 		}
+		
+		session = map.get(id);
 		currentAuth = map.get(id).getAuthorization();
 		return true;
 		
