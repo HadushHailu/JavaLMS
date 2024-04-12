@@ -40,7 +40,9 @@ final public class Book implements Serializable {
 	public List<Integer> getCopyNums() {
 		List<Integer> retVal = new ArrayList<>();
 		for(BookCopy c : copies) {
-			retVal.add(c.getCopyNum());
+			if(c.isAvailable()) {
+				retVal.add(c.getCopyNum());
+			}
 		}
 		return retVal;
 		
@@ -114,6 +116,7 @@ final public class Book implements Serializable {
 		for(BookCopy bc: copies) {
 			if(bc.isAvailable() == true) {
 				bookcopy =  bc;
+				break;
 			}
 		}
 		return bookcopy;
@@ -130,9 +133,4 @@ final public class Book implements Serializable {
 	public int getMaxCheckoutLength() {
 		return maxCheckoutLength;
 	}
-
-	
-	
-	
-	
 }

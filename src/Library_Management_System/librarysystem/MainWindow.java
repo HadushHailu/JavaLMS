@@ -106,12 +106,6 @@ public class MainWindow implements WindowManager {
 					frame.setVisible(false);
 					//db.setVisible(true);
 					goToDashBoard();
-				}
-				if(loginStatus) {
-					JOptionPane.showMessageDialog(null,"Successful Login!");
-					frame.setVisible(false);
-					DashboardWindow db = new DashboardWindow();
-					db.setVisible(true);
 				}else {
 					JOptionPane.showMessageDialog(null,"Invalid username or password!");
 				}

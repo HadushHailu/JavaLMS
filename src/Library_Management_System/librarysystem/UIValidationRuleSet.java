@@ -21,6 +21,18 @@ public class UIValidationRuleSet {
 		return msg.toString();
 	}
 	
+	public static String checkoutValidation(String memberId,String isbn) {
+		msg=new StringBuilder("");
+		
+		if(memberId.isEmpty())
+			msg.append("Member ID is required!!\n");
+		
+		if(isbn.isEmpty())
+			msg.append("Book ISBN is required!!\n");
+		
+		return msg.toString();
+	}
+	
 	public static String addbookValidation(String isbn, String title,
 			String copyNum, List<Author> authors) {
 		msg=new StringBuilder("");

@@ -35,7 +35,8 @@ public class PanelCheckoutBook extends JPanel {
 	private  ControllerInterface ci = new SystemController();
 	private DefaultTableModel modelRecord = new DefaultTableModel();
 	private DefaultTableModel modelBook = new DefaultTableModel();
-	Random rand = new Random();
+	private Random rand = new Random();
+	private User session = SystemController.session;
 
 	/**
 	 * Create the panel.
@@ -215,6 +216,7 @@ public class PanelCheckoutBook extends JPanel {
  			if(book.getIsbn().equals(txtBookIsbn.getText())) {
  				System.out.println("They are equall");
  				b = book;
+ 				break;
  			}
 		}
  		
@@ -237,8 +239,11 @@ public class PanelCheckoutBook extends JPanel {
 				bc.changeAvailability();
 			}else {
 				System.out.println("Not available!");
+				JOptionPane.showMessageDialog(null,"Book Not available!");
 			}
-			
+ 		}
+ 		else {
+ 			JOptionPane.showMessageDialog(null,"Invalid ISBN!");
  		}
 	}
 	
@@ -271,25 +276,44 @@ public class PanelCheckoutBook extends JPanel {
 		JButton btnSearch = new JButton("Search");
 		btnSearch.setBounds(329, 67, 151, 33);
 		panel.add(btnSearch);
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String errorMsg=UIValidationRuleSet.checkoutValidation(txtMemberId.getText(),txtBookIsbn.getText());
+				if(!errorMsg.isEmpty()) {
+					JOptionPane.showMessageDialog(null,errorMsg);
+					return;
+				}
+				
+				viewBookISBN();
+			}
+		});
 		
 		JButton btnSearch_1 = new JButton("Checkout");
 		btnSearch_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				User user = new User("123", "123", Auth.LIBRARIAN);
-				ci.addCheckoutEntry(txtMemberId.getText(), txtBookIsbn.getText(), user);
-				viewRecord();
-				viewBook();
+				String errorMsg=UIValidationRuleSet.checkoutValidation(txtMemberId.getText(),txtBookIsbn.getText());
+				if(!errorMsg.isEmpty()) {
+					JOptionPane.showMessageDialog(null,errorMsg);
+					return;
+				}
+				
+				String res=ci.addCheckoutEntry(txtMemberId.getText(), txtBookIsbn.getText(), session);
+				if(res=="ok") {
+					JOptionPane.showMessageDialog(null,"Checkout successfully!");
+					viewRecord();
+					viewBookISBN();
+					txtBookIsbn.setText("");
+				}
+				else {
+					JOptionPane.showMessageDialog(null,res);
+				}
+				
 			}
 		});
 		btnSearch_1.setBounds(519, 67, 151, 33);
 		panel.add(btnSearch_1);
 		//btnSearch_1.setEnabled(false);
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				viewBookISBN();
-			}
-		});
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(510, 171, 678, 522);
 		add(panel_1);
