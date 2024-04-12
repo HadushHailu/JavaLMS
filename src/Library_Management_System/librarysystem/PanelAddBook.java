@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -110,13 +112,17 @@ public class PanelAddBook extends JPanel {
 		panel.add(texttitle);
 		texttitle.setColumns(10);
 		
+		ButtonGroup buttonGroup = new ButtonGroup();
+		
 		JRadioButton rdn7Days = new JRadioButton("7 days");
 		rdn7Days.setBounds(571, 95, 92, 23);
 		panel.add(rdn7Days);
+		buttonGroup.add(rdn7Days);
 		
 		JRadioButton rdn21Days = new JRadioButton("21 days");
 		rdn21Days.setBounds(667, 95, 115, 23);
 		panel.add(rdn21Days);
+		buttonGroup.add(rdn21Days);
 		
 		JLabel lblNewLabel_3 = new JLabel("Due Length");
 		lblNewLabel_3.setBounds(436, 99, 105, 14);
