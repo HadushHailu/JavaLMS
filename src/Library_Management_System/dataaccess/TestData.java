@@ -42,12 +42,13 @@ public class TestData {
 	}
 	///create books
 	public void bookData() {
-		allBooks.get(0).addCopy(1);
-		allBooks.get(0).addCopy(1);
-		allBooks.get(1).addCopy(1);
-		allBooks.get(3).addCopy(1);
-		allBooks.get(2).addCopy(1);
-		allBooks.get(2).addCopy(1);
+//		allBooks.get(0).addCopy(1);
+//		allBooks.get(0).addCopy(1);
+//		allBooks.get(1).addCopy(1);
+//		allBooks.get(3).addCopy(1);
+//		allBooks.get(2).addCopy(1);
+//		allBooks.get(2).addCopy(1);
+		System.out.println(allBooks.size());
 		DataAccessFacade.loadBookMap(allBooks);
 	}
 	

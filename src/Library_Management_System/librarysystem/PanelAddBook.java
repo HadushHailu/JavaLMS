@@ -163,6 +163,7 @@ public class PanelAddBook extends JPanel {
 		JButton btnNewButton_2 = new JButton("Clear");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				viewBook();
 			}
 		});
 		btnNewButton_2.setBounds(261, 223, 179, 42);

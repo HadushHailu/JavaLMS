@@ -18,7 +18,9 @@ public interface ControllerInterface {
 						  String firstName, String lastName,
 						  String tel, String street, String state, String city,
 						  String zip);
+	
 	public void addBook(String isbn, String title,
 			int copyNum, int maxLength, List<Author> authors);
+	
 }
 

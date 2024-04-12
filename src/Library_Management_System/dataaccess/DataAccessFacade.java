@@ -80,6 +80,7 @@ public class DataAccessFacade implements DataAccess {
 	public static void loadBookMap(List<Book> bookList) {
 		HashMap<String, Book> books = new HashMap<String, Book>();
 		bookList.forEach(book -> books.put(book.getIsbn(), book));
+		System.out.println(books);
 		saveToStorage(StorageType.BOOKS, books);
 	}
 	public static void loadUserMap(List<User> userList) {
@@ -103,24 +104,30 @@ public class DataAccessFacade implements DataAccess {
 	static void saveToStorage(StorageType type, Object ob) {
 		HashMap<String, LibraryMember> oldvalMember;
 		HashMap<String, User> oldvalUser;
-		HashMap<String, Book> oldvalBooks;
+		HashMap<String, Book> oldvalBooks = new HashMap<String, Book>();
 		
 		if(type == StorageType.MEMBERS) {
 		  oldvalMember =  (HashMap<String, LibraryMember>)readFromStorage(StorageType.MEMBERS);
-		  oldvalMember.putAll((HashMap<String, LibraryMember>)ob);
-		  ob = oldvalMember;
+		  if(oldvalMember != null) {
+			  oldvalMember.putAll((HashMap<String, LibraryMember>)ob);
+			  ob = (Object)oldvalMember;
+		  }
 		}
 		
 		if(type == StorageType.USERS) {
 		  oldvalUser =  (HashMap<String, User>)readFromStorage(StorageType.USERS);
-		  oldvalUser.putAll((HashMap<String, User>) ob);
-		  ob = oldvalUser;
+		  if(oldvalUser != null) {
+			  oldvalUser.putAll((HashMap<String, User>) ob);
+			  ob = (Object)oldvalUser;
+		  }
 		}
 		
 		if(type == StorageType.BOOKS) {
 			oldvalBooks =  (HashMap<String,Book>) readFromStorage(StorageType.BOOKS);
-			oldvalBooks.putAll((HashMap<String,Book>) ob);
-			ob = oldvalBooks;
+			if(oldvalBooks != null) {
+				oldvalBooks.putAll((HashMap<String,Book>) ob);
+				ob = (Object)oldvalBooks;
+			}
 		}
 		
 		ObjectOutputStream out = null;

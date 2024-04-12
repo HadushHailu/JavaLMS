@@ -8,6 +8,10 @@ public class WTF {
 		ControllerInterface ci = new SystemController();
 		ci.allMembers();
 		System.out.println(ci.allMembers().size());
+		
+		ci.allBooks();
+		System.out.println(ci.allBooks().size());
+		
 	}
 
 }

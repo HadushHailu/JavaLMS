@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import Library_Management_System.business.Address;
 import Library_Management_System.business.Author;
 import Library_Management_System.business.Book;
@@ -68,7 +70,22 @@ public class SystemController implements ControllerInterface {
 	
 	@Override
 	public boolean addBookCopy(String isbn,int totolCopy) {
-		return false;
+		List<Book> bookList = allBooks();
+		Book book = null;
+		for(Book b: bookList) {
+			if(b.getIsbn().equals(isbn)) {
+				book = b;
+			}
+		}
+		
+		if(book==null) {
+			return false;
+		}
+		book.addCopy(totolCopy);
+		
+		//load
+		DataAccessFacade.loadBookMap(bookList);
+		return true;
 	}
 	
 	@Override

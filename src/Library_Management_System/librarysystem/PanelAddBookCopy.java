@@ -48,10 +48,15 @@ public class PanelAddBookCopy extends JPanel {
 		}
 		
 		String[] row = new String[5];
-	
+		
+	    
+	    
 		row[0] = book.getIsbn();
 		row[1] = book.getTitle();
+		
+		System.out.println("addcopy: " + row[0] + " " + row[1]);
 		row[2] = Integer.toString(book.getCopyNums().size());
+		//row[2] = book.getIsbn();
 		model.addRow(row);
 		}
 	
@@ -102,27 +107,8 @@ public class PanelAddBookCopy extends JPanel {
 		scrollPane.setViewportView(table);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(txtIsbn.toString().isEmpty()) {
-					JOptionPane.showMessageDialog(null,"Enter ISBN");
-					return;
-				}
-				List<Book> bookList=ci.allBooks();
-				Book book=null;
-				int i;
-				for(i=0;i<bookList.size();i++) {
-					if(bookList.get(i).getIsbn().equals(txtIsbn.getText())){
-						book=bookList.get(i);
-						break;
-					}
-				}
-				if(book==null) {
-					JOptionPane.showMessageDialog(null,"Book not found!!");
-					return;
-				}
 				
-				book.addCopy( Integer.valueOf(txtNoOfCopy.getText()));
-				bookList.add(i, book);
-				
+			    ci.addBookCopy(txtIsbn.getText(), Integer.parseInt(txtNoOfCopy.getText()));
 				initJTable();
 			}
 		});
