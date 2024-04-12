@@ -42,6 +42,7 @@ public class SystemController implements ControllerInterface {
 		return true;
 		
 	}
+
 	
 	public String addCheckoutEntry(String memberId, String bookIsbn, User user) {
 		String ret = "";
@@ -52,11 +53,14 @@ public class SystemController implements ControllerInterface {
         for(LibraryMember mem: memberList) {
         	if(mem.getMemberId().equals(memberId)) {
         		member = mem;
-        		ret += "MemberId doesn't exist!";
         		break;
         	}
         }
 		
+        if(member==null) {
+        	return "Invalid member!!";
+        }
+        
 		//check if bookISBN exists and copy is available
         List<Book> bookList = allBooks();
 		Book book=null;
@@ -75,16 +79,16 @@ public class SystemController implements ControllerInterface {
 							LocalDate.now().plusDays(bk.getMaxCheckoutLength())
 							);
 					addBook(bookList);
-					ret += "Successfuly checkedout!";
+					ret = "ok";
 					break;
 				}else {
 					System.out.println("No available copy!");
-					ret += "and copy isn't available!";
+					ret = "Book copy is not available!";
 				}
+				
+				break;
 			}
-			
 		}
-			
 		return ret;
 	}
 	
