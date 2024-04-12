@@ -102,9 +102,10 @@ public class DataAccessFacade implements DataAccess {
 	}
 	
 	static void saveToStorage(StorageType type, Object ob) {
-		HashMap<String, LibraryMember> oldvalMember;
-		HashMap<String, User> oldvalUser;
+		HashMap<String, LibraryMember> oldvalMember = new HashMap<String, LibraryMember>();
+		HashMap<String, User> oldvalUser = new HashMap<String, User>();
 		HashMap<String, Book> oldvalBooks = new HashMap<String, Book>();
+		HashMap<String, CheckoutEntry> oldvalCheckoutEntries = new HashMap<String, CheckoutEntry>();
 		
 		if(type == StorageType.MEMBERS) {
 		  oldvalMember =  (HashMap<String, LibraryMember>)readFromStorage(StorageType.MEMBERS);
@@ -127,6 +128,15 @@ public class DataAccessFacade implements DataAccess {
 			if(oldvalBooks != null) {
 				oldvalBooks.putAll((HashMap<String,Book>) ob);
 				ob = (Object)oldvalBooks;
+			}
+		}
+		
+		if(type == StorageType.CHECKOUT) {
+			System.out.println("loading checkout");
+			oldvalCheckoutEntries =  (HashMap<String, CheckoutEntry>) readFromStorage(StorageType.CHECKOUT);
+			if(oldvalCheckoutEntries != null) {
+				oldvalCheckoutEntries.putAll((HashMap<String, CheckoutEntry>) ob);
+				ob = (Object)oldvalCheckoutEntries;
 			}
 		}
 		

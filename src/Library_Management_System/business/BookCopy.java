@@ -36,7 +36,10 @@ final public class BookCopy implements Serializable {
 	}
 	
 	public void changeAvailability() {
-		isAvailable = !isAvailable;
+		if(isAvailable == true)
+			isAvailable = false;
+		else
+			isAvailable = true;
 	}
 	
 	@Override

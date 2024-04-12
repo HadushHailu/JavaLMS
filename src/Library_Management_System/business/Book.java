@@ -50,7 +50,7 @@ final public class Book implements Serializable {
 		int currentNumCopy = copies.size();
 		
 		for(int i=0; i < numCopy; i++) {
-			BookCopy bc = new BookCopy(this, copies.size() + 1 );
+			BookCopy bc = new BookCopy(this, copies.size() + 1, true);
 			copies.add(bc);
 		}
 	}
@@ -100,12 +100,23 @@ final public class Book implements Serializable {
 	}
 	
 	public BookCopy getNextAvailableCopy() {
-		BookCopy[] tCopies = copies.toArray(new BookCopy[copies.size()]);
-		
-		Optional<BookCopy> optional 
-			= Arrays.stream(tCopies)
-			        .filter(x -> x.isAvailable()).findFirst();
-		return optional.isPresent() ? optional.get() : null;
+//		BookCopy[] tCopies = copies.toArray(new BookCopy[copies.size()]);
+//		
+//		System.out.println("getNextAvailableCopy" + tCopies.length);
+//		
+//		Optional<BookCopy> optional 
+//			= Arrays.stream(tCopies)
+//			        .filter(x -> x.isAvailable()).findFirst();
+//		
+//		System.out.println("getNextAvailableCopy" + optional.isPresent());
+//		return optional.isPresent() ? optional.get() : null;
+		BookCopy bookcopy = null;
+		for(BookCopy bc: copies) {
+			if(bc.isAvailable() == true) {
+				bookcopy =  bc;
+			}
+		}
+		return bookcopy;
 	}
 	
 	public BookCopy getCopy(int copyNum) {
