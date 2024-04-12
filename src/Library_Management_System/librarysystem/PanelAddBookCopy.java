@@ -4,7 +4,9 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
+import Library_Management_System.business.Author;
 import Library_Management_System.business.Book;
 import Library_Management_System.controller.ControllerInterface;
 import Library_Management_System.controller.SystemController;
@@ -22,10 +24,37 @@ public class PanelAddBookCopy extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtIsbn;
 	private JTextField txtNoOfCopy;
-	private JTable table;
-	private JTable table_1;
+	private DefaultTableModel model;
 	private  ControllerInterface ci = new SystemController();
+	private JTable table;
 
+	public void initJTable() {
+		model = new DefaultTableModel();
+		String[] column = {"Book ISBN","BOOK title","Copy Number"};
+		table.setModel(model);
+		model.setColumnIdentifiers(column);
+		viewBook();
+	}
+	
+	public void viewBook() {
+		model.setRowCount(0);
+		List<Book> bookList = ci.allBooks();
+		
+		Book book = null;
+		for(Book b: bookList) {
+			if(b.getIsbn().equals(txtIsbn.getText())) {
+				book = b;
+			}
+		}
+		
+		String[] row = new String[5];
+	
+		row[0] = book.getIsbn();
+		row[1] = book.getTitle();
+		row[2] = Integer.toString(book.getCopyNums().size());
+		model.addRow(row);
+		}
+	
 	/**
 	 * Create the panel.
 	 */
@@ -34,7 +63,7 @@ public class PanelAddBookCopy extends JPanel {
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(46, 24, 608, 197);
+		panel.setBounds(46, 24, 1142, 178);
 		add(panel);
 		panel.setLayout(null);
 		
@@ -47,33 +76,30 @@ public class PanelAddBookCopy extends JPanel {
 		panel.add(lblNewLabel_1);
 		
 		txtIsbn = new JTextField();
-		txtIsbn.setBounds(255, 65, 207, 28);
+		txtIsbn.setBounds(476, 66, 207, 28);
 		panel.add(txtIsbn);
 		txtIsbn.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Add Copy");
-		btnNewButton.setBounds(255, 143, 89, 28);
+		btnNewButton.setBounds(476, 140, 219, 28);
 		panel.add(btnNewButton);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("No of Copies");
-		lblNewLabel_1_1.setBounds(126, 99, 72, 28);
+		lblNewLabel_1_1.setBounds(126, 99, 247, 28);
 		panel.add(lblNewLabel_1_1);
 		
 		txtNoOfCopy = new JTextField();
-		txtNoOfCopy.setBounds(255, 104, 77, 28);
+		txtNoOfCopy.setBounds(476, 100, 77, 28);
 		panel.add(txtNoOfCopy);
 		txtNoOfCopy.setText("1");
 		txtNoOfCopy.setColumns(10);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(42, 232, 613, 163);
+		scrollPane.setBounds(42, 232, 1146, 456);
 		add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		
-		table_1 = new JTable();
-		scrollPane.setColumnHeaderView(table_1);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(txtIsbn.toString().isEmpty()) {
@@ -84,8 +110,9 @@ public class PanelAddBookCopy extends JPanel {
 				Book book=null;
 				int i;
 				for(i=0;i<bookList.size();i++) {
-					if(bookList.get(i).getIsbn().equals(txtIsbn.toString())){
+					if(bookList.get(i).getIsbn().equals(txtIsbn.getText())){
 						book=bookList.get(i);
+						break;
 					}
 				}
 				if(book==null) {
@@ -93,8 +120,10 @@ public class PanelAddBookCopy extends JPanel {
 					return;
 				}
 				
-				book.addCopy( Integer.valueOf(txtNoOfCopy.toString()));
+				book.addCopy( Integer.valueOf(txtNoOfCopy.getText()));
 				bookList.add(i, book);
+				
+				initJTable();
 			}
 		});
 
