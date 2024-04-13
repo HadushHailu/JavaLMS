@@ -18,6 +18,9 @@ import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class PanelAddBookCopy extends JPanel {
 
@@ -69,47 +72,72 @@ public class PanelAddBookCopy extends JPanel {
 	 * Create the panel.
 	 */
 	public PanelAddBookCopy() {
-		setBackground(new Color(173, 216, 230));
+		setBorder(new LineBorder(new Color(0, 0, 0)));
+		//setBackground(new Color(173, 216, 230));
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(46, 24, 1142, 178);
+		panel.setBackground(new Color(255, 250, 240));
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBounds(46, 24, 1142, 167);
 		add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Add New Book Copy");
-		lblNewLabel.setBounds(190, 0, 266, 34);
+		lblNewLabel.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblNewLabel.setBounds(446, 12, 266, 34);
 		panel.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Enter ISBN");
-		lblNewLabel_1.setBounds(131, 65, 103, 28);
+		lblNewLabel_1.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblNewLabel_1.setBounds(282, 66, 103, 28);
 		panel.add(lblNewLabel_1);
 		
 		txtIsbn = new JTextField();
-		txtIsbn.setBounds(476, 66, 207, 28);
+		txtIsbn.setBounds(427, 61, 225, 34);
 		panel.add(txtIsbn);
 		txtIsbn.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Add Copy");
-		btnNewButton.setBounds(476, 140, 219, 28);
+		btnNewButton.setFont(new Font("FreeSans", Font.BOLD, 18));
+		btnNewButton.setBounds(678, 61, 219, 80);
 		panel.add(btnNewButton);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("No of Copies");
-		lblNewLabel_1_1.setBounds(126, 99, 247, 28);
+		lblNewLabel_1_1.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblNewLabel_1_1.setBounds(279, 115, 120, 28);
 		panel.add(lblNewLabel_1_1);
 		
 		txtNoOfCopy = new JTextField();
-		txtNoOfCopy.setBounds(476, 100, 77, 28);
+		txtNoOfCopy.setBounds(425, 107, 225, 34);
 		panel.add(txtNoOfCopy);
 		txtNoOfCopy.setText("1");
 		txtNoOfCopy.setColumns(10);
 		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(230, 230, 250));
+		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_1.setBounds(42, 232, 1146, 456);
+		add(panel_1);
+		panel_1.setLayout(null);
+		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(42, 232, 1146, 456);
-		add(scrollPane);
+		scrollPane.setBounds(0, 61, 1146, 395);
+		panel_1.add(scrollPane);
 		
 		table = new JTable();
+		table.setFont(new Font("FreeSans", Font.BOLD, 14));
 		scrollPane.setViewportView(table);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-info-30.png"));
+		lblNewLabel_2.setBounds(422, 1, 43, 48);
+		panel_1.add(lblNewLabel_2);
+		
+		JLabel lblBookCopyInformation = new JLabel("Book Copy information");
+		lblBookCopyInformation.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblBookCopyInformation.setBounds(461, 1, 237, 48);
+		panel_1.add(lblBookCopyInformation);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String errorMsg=UIValidationRuleSet.addBookCopyValidation(txtIsbn.getText(), txtNoOfCopy.getText());

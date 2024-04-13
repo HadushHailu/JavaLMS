@@ -24,6 +24,10 @@ import java.util.List;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class PanelCheckoutBook extends JPanel {
 
@@ -157,7 +161,7 @@ public class PanelCheckoutBook extends JPanel {
 	}
 	
 	public void initJTableBook() {
-		String[] column = {"Book ISBN", "Book title", "Copy Nums", "Length", "Due Date"};
+		String[] column = {"Book ISBN", "Book title", "Available copies", "Loan period", "Due Date"};
 		tableBook.setModel(modelBook);
 		modelBook.setColumnIdentifiers(column);
 		viewBook();
@@ -248,37 +252,43 @@ public class PanelCheckoutBook extends JPanel {
 	}
 	
 	public PanelCheckoutBook() {
+		setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(51, 56, 1137, 103);
+		panel.setBackground(new Color(255, 250, 240));
+		panel.setBorder(new LineBorder(new Color(0, 128, 0), 1, true));
+		panel.setBounds(45, 12, 1143, 147);
 		add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblMemberId = new JLabel("Member  ID");
-		lblMemberId.setBounds(0, 0, 105, 40);
+		lblMemberId.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblMemberId.setBounds(138, 32, 144, 40);
 		panel.add(lblMemberId);
 		
 		JLabel lblBookIsbn = new JLabel("Book ISBN");
-		lblBookIsbn.setBounds(0, 63, 105, 40);
+		lblBookIsbn.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblBookIsbn.setBounds(138, 84, 105, 40);
 		panel.add(lblBookIsbn);
 		
 		txtBookIsbn = new JTextField();
-		txtBookIsbn.setBounds(129, 69, 151, 29);
+		txtBookIsbn.setBounds(250, 89, 186, 35);
 		panel.add(txtBookIsbn);
 		txtBookIsbn.setColumns(10);
 		
 		txtMemberId = new JTextField();
-		txtMemberId.setBounds(129, 6, 151, 29);
+		txtMemberId.setBounds(250, 32, 186, 35);
 		panel.add(txtMemberId);
 		txtMemberId.setColumns(10);
 		
-		JButton btnSearch = new JButton("Search");
-		btnSearch.setBounds(329, 67, 151, 33);
+		JButton btnSearch = new JButton("Search ISBN");
+		btnSearch.setFont(new Font("FreeSans", Font.BOLD, 16));
+		btnSearch.setBounds(470, 68, 161, 56);
 		panel.add(btnSearch);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String errorMsg=UIValidationRuleSet.checkoutValidation(txtMemberId.getText(),txtBookIsbn.getText());
+				String errorMsg=UIValidationRuleSet.checkoutValidation(txtBookIsbn.getText());
 				if(!errorMsg.isEmpty()) {
 					JOptionPane.showMessageDialog(null,errorMsg);
 					return;
@@ -288,7 +298,8 @@ public class PanelCheckoutBook extends JPanel {
 			}
 		});
 		
-		JButton btnSearch_1 = new JButton("Checkout");
+		JButton btnSearch_1 = new JButton("Checkout Book");
+		btnSearch_1.setFont(new Font("FreeSans", Font.BOLD, 16));
 		btnSearch_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String errorMsg=UIValidationRuleSet.checkoutValidation(txtMemberId.getText(),txtBookIsbn.getText());
@@ -310,50 +321,82 @@ public class PanelCheckoutBook extends JPanel {
 				
 			}
 		});
-		btnSearch_1.setBounds(519, 67, 151, 33);
+		btnSearch_1.setBounds(670, 68, 186, 56);
 		panel.add(btnSearch_1);
 		//btnSearch_1.setEnabled(false);
 
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(230, 230, 250));
+		panel_1.setBorder(new LineBorder(new Color(0, 128, 0)));
 		panel_1.setBounds(510, 171, 678, 522);
 		add(panel_1);
 		panel_1.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 52, 678, 470);
+		scrollPane.setBounds(0, 66, 678, 456);
 		panel_1.add(scrollPane);
 		
 		tableRecord = new JTable();
 		scrollPane.setViewportView(tableRecord);
 		
-		JLabel lblRecordInformation = new JLabel("Record Information");
-		lblRecordInformation.setBounds(0, 0, 153, 40);
+		JLabel lblRecordInformation = new JLabel("Checkout Entry information");
+		lblRecordInformation.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblRecordInformation.setBounds(149, 12, 237, 40);
 		panel_1.add(lblRecordInformation);
 		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-info-30.png"));
+		lblNewLabel.setBounds(116, 6, 43, 48);
+		panel_1.add(lblNewLabel);
+		
+		JButton btnRefreshBookRecord = new JButton("Refresh");
+		btnRefreshBookRecord.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//Refresh book record
+				viewRecord();
+			}
+		});
+		btnRefreshBookRecord.setFont(new Font("FreeSans", Font.BOLD, 16));
+		btnRefreshBookRecord.setBounds(386, 9, 182, 46);
+		panel_1.add(btnRefreshBookRecord);
+		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(230, 230, 250));
+		panel_2.setBorder(new LineBorder(new Color(0, 128, 0)));
 		panel_2.setBounds(46, 172, 434, 521);
 		add(panel_2);
 		panel_2.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 47, 434, 423);
+		scrollPane_1.setBounds(0, 66, 434, 455);
 		panel_2.add(scrollPane_1);
 		
 		tableBook = new JTable();
 		scrollPane_1.setViewportView(tableBook);
 		
 		JLabel lblBookInformation = new JLabel("Book Information");
-		lblBookInformation.setBounds(0, 0, 153, 40);
+		lblBookInformation.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblBookInformation.setBounds(55, 12, 170, 40);
 		panel_2.add(lblBookInformation);
 		
-		JButton btnRefresh = new JButton("refresh");
+		JButton btnRefresh = new JButton("Refresh");
+		btnRefresh.setFont(new Font("FreeSans", Font.BOLD, 16));
 		btnRefresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				viewBook();
 			}
 		});
-		btnRefresh.setBounds(171, 8, 151, 33);
+		btnRefresh.setBounds(220, 8, 182, 46);
 		panel_2.add(btnRefresh);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-info-30.png"));
+		lblNewLabel_1.setBounds(22, 6, 43, 48);
+		panel_2.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setBounds(22, 6, 43, 48);
+		panel_2.add(lblNewLabel_2);
 		//table.setEnabled(false);
 		initJTableRecord();
 		initJTableBook();

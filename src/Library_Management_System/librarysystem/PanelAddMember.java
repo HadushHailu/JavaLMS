@@ -23,6 +23,10 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class PanelAddMember extends JPanel {
 
@@ -87,106 +91,138 @@ public class PanelAddMember extends JPanel {
 	}
 	
 	public PanelAddMember() {
+		setBorder(new LineBorder(new Color(0, 0, 0)));
+		//setBorder(new LineBorder(new Color(0, 0, 0)));
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(25, 24, 1151, 125);
+		panel.setBackground(new Color(255, 250, 240));
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBounds(25, 26, 1151, 268);
 		add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblAddressDetails = new JLabel("Address Details");
-		lblAddressDetails.setBounds(23, 58, 115, 15);
+		lblAddressDetails.setFont(new Font("FreeSans", Font.BOLD, 18));
+		lblAddressDetails.setBounds(47, 104, 162, 30);
 		panel.add(lblAddressDetails);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(26, 11, 912, 36);
+		panel_2.setBackground(new Color(255, 250, 240));
+		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_2.setBounds(12, 12, 1110, 80);
 		panel.add(panel_2);
 		panel_2.setLayout(null);
 		
 		JLabel lblMemberId = new JLabel("Member Id");
-		lblMemberId.setBounds(10, 0, 70, 37);
+		lblMemberId.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblMemberId.setBounds(30, 21, 106, 37);
 		panel_2.add(lblMemberId);
 		
 		txtMemberId = new JTextField();
+		txtMemberId.setForeground(new Color(123, 104, 238));
+		txtMemberId.setFont(new Font("FreeSans", Font.BOLD, 18));
 		txtMemberId.setEditable(false);
-		txtMemberId.setBounds(81, 8, 97, 19);
+		txtMemberId.setBounds(139, 20, 61, 37);
 		panel_2.add(txtMemberId);
 		txtMemberId.setColumns(10);
 		
 		JLabel lblFirstName = new JLabel("First Name");
-		lblFirstName.setBounds(216, 11, 70, 15);
+		lblFirstName.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblFirstName.setBounds(233, 22, 121, 36);
 		panel_2.add(lblFirstName);
 		
 		txtFirstName = new JTextField();
-		txtFirstName.setBounds(296, 9, 121, 18);
+		txtFirstName.setBounds(355, 21, 121, 37);
 		panel_2.add(txtFirstName);
 		txtFirstName.setColumns(10);
 		
 		JLabel lblLastName = new JLabel("Last Name");
-		lblLastName.setBounds(458, 11, 55, 15);
+		lblLastName.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblLastName.setBounds(499, 22, 97, 37);
 		panel_2.add(lblLastName);
 		
 		txtLastName = new JTextField();
-		txtLastName.setBounds(523, 8, 115, 20);
+		txtLastName.setBounds(597, 21, 137, 37);
 		panel_2.add(txtLastName);
 		txtLastName.setColumns(10);
 		
-		JLabel lblContactNumber = new JLabel("Contact No");
-		lblContactNumber.setBounds(670, 11, 62, 15);
+		JLabel lblContactNumber = new JLabel("Contact No.");
+		lblContactNumber.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblContactNumber.setBounds(780, 27, 97, 24);
 		panel_2.add(lblContactNumber);
 		
 		txtTel = new JTextField();
-		txtTel.setBounds(739, 8, 137, 20);
+		txtTel.setBounds(895, 20, 188, 37);
 		panel_2.add(txtTel);
 		txtTel.setColumns(10);
 		
 		JPanel panel_2_1 = new JPanel();
-		panel_2_1.setBounds(23, 84, 912, 36);
+		panel_2_1.setBorder(new LineBorder(new Color(255, 0, 0)));
+		panel_2_1.setBackground(new Color(255, 250, 240));
+		panel_2_1.setBounds(12, 146, 1110, 54);
 		panel.add(panel_2_1);
 		panel_2_1.setLayout(null);
 		
 		JLabel lblState = new JLabel("State");
-		lblState.setBounds(10, 11, 54, 15);
+		lblState.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblState.setBounds(28, 13, 78, 22);
 		panel_2_1.add(lblState);
 		
 		txtState = new JTextField();
 		txtState.setColumns(10);
-		txtState.setBounds(74, 8, 97, 18);
+		txtState.setBounds(108, 9, 130, 29);
 		panel_2_1.add(txtState);
 		
 		JLabel lblCity = new JLabel("City");
-		lblCity.setBounds(216, 11, 31, 15);
+		lblCity.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblCity.setBounds(274, 14, 54, 24);
 		panel_2_1.add(lblCity);
 		
 		txtCity = new JTextField();
 		txtCity.setColumns(10);
-		txtCity.setBounds(257, 8, 127, 18);
+		txtCity.setBounds(352, 9, 179, 33);
 		panel_2_1.add(txtCity);
 		
 		JLabel lblStreet = new JLabel("Street");
-		lblStreet.setBounds(419, 11, 54, 15);
+		lblStreet.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblStreet.setBounds(561, 11, 94, 31);
 		panel_2_1.add(lblStreet);
 		
 		txtStreet = new JTextField();
-		txtStreet.setBounds(470, 9, 115, 18);
+		txtStreet.setBounds(642, 9, 179, 33);
 		panel_2_1.add(txtStreet);
 		txtStreet.setColumns(10);
 		
 		JLabel lblZipcode = new JLabel("Zip Code");
-		lblZipcode.setBounds(616, 11, 54, 15);
+		lblZipcode.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblZipcode.setBounds(859, 11, 79, 31);
 		panel_2_1.add(lblZipcode);
 		
 		txtZip = new JTextField();
-		txtZip.setBounds(691, 9, 127, 18);
+		txtZip.setBounds(972, 9, 105, 33);
 		panel_2_1.add(txtZip);
 		txtZip.setColumns(10);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(25, 160, 1151, 42);
-		add(panel_1);
-		panel_1.setLayout(null);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-address-30.png"));
+		lblNewLabel.setBounds(12, 104, 70, 30);
+		panel.add(lblNewLabel);
 		
 		JButton btnAdd = new JButton("Add");
+		btnAdd.setFont(new Font("FreeSans", Font.BOLD, 18));
+		btnAdd.setBounds(117, 212, 133, 44);
+		panel.add(btnAdd);
+		
+		JButton btnClear = new JButton("Clear");
+		btnClear.setFont(new Font("FreeSans", Font.BOLD, 18));
+		btnClear.setBounds(362, 212, 180, 44);
+		panel.add(btnClear);
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clearForm();
+			}
+		});
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String errorMsg=UIValidationRuleSet.addMemberValidation(txtFirstName.getText(),
@@ -219,24 +255,31 @@ public class PanelAddMember extends JPanel {
 			}
 			
 		});
-		btnAdd.setBounds(10, 11, 110, 25);
-		panel_1.add(btnAdd);
 		
-		JButton btnClear = new JButton("Clear");
-		btnClear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				clearForm();
-			}
-		});
-		btnClear.setBounds(147, 11, 89, 25);
-		panel_1.add(btnClear);
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(230, 230, 250));
+		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel_3.setBounds(25, 317, 1151, 376);
+		add(panel_3);
+		panel_3.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(25, 219, 1141, 474);
-		add(scrollPane);
+		scrollPane.setBounds(0, 54, 1151, 322);
+		panel_3.add(scrollPane);
 		
 		table = new JTable();
+		table.setFont(new Font("FreeSans", Font.PLAIN, 16));
 		scrollPane.setViewportView(table);
+		
+		JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-info-30.png"));
+		lblNewLabel_1.setBounds(424, 5, 43, 48);
+		panel_3.add(lblNewLabel_1);
+		
+		JLabel lblMemberInformation = new JLabel("Member information");
+		lblMemberInformation.setFont(new Font("FreeSans", Font.BOLD, 16));
+		lblMemberInformation.setBounds(460, 5, 237, 48);
+		panel_3.add(lblMemberInformation);
 		
 		initJTable();
 
