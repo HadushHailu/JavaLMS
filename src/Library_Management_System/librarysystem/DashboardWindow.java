@@ -160,6 +160,10 @@ public class DashboardWindow implements WindowManager{
 		btnAddMember = new JButton("Add Member ");
 		btnAddMember.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//panelAddMember = new PanelAddMember();
+//				panelAddMember.setBackground(new Color(224, 255, 255));
+//				layeredPane.add(panelAddMember);
+//				panelAddMember.setLayout(null);
 				switchPanels(panelAddMember);
 			}
 		});

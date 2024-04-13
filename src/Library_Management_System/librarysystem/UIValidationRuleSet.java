@@ -62,6 +62,29 @@ public class UIValidationRuleSet {
 		return msg.toString();
 	}
 	
+	public static String addBookCopyValidation(String isbn,String noOfCopy) {
+		msg=new StringBuilder("");
+		if(isbn.isEmpty())
+			msg.append("ISBN is required!!\n");
+		
+		if(noOfCopy.isEmpty() || noOfCopy.trim()=="0")
+			msg.append("No. of copies is required!!\n");
+		
+		return msg.toString();
+	}
+	
+	public static String addMemberValidation(String firstName, String lastName,
+			  String tel, String street, String state, String city,String zip) {
+		
+		msg=new StringBuilder("");
+		msg.append(alphabetValidation(firstName,"First Name"));
+		msg.append(alphabetValidation(lastName,"Last Name"));
+		msg.append(mobileNumValidation(tel,"Contact Number"));
+		msg.append(addressValidation(state,city,street,zip));
+		
+		return msg.toString();
+	}
+	
 	public static String addressValidation(String state,String city,String street,String zip) {
 		StringBuilder msg1=new StringBuilder("");
 		msg1.append(alphabetValidation(state,"State"));
