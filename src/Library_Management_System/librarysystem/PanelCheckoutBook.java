@@ -301,7 +301,7 @@ public class PanelCheckoutBook extends JPanel {
 				if(res=="ok") {
 					JOptionPane.showMessageDialog(null,"Checkout successfully!");
 					viewRecord();
-					//viewBookISBN();
+					viewBook();
 					txtBookIsbn.setText("");
 				}
 				else {

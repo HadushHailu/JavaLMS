@@ -38,14 +38,12 @@ public class UIValidationRuleSet {
 			String copyNum, List<Author> authors) {
 		msg=new StringBuilder("");
 		
-		if(isNullOrEmpty(isbn))
-			msg.append("ISBN is required!!\n");
-		
+		msg.append(numberValidation(isbn, "BOOK ISBN"));
+			
 		if(isNullOrEmpty(title))
 			msg.append("Book title is required!!\n");
 		
-		if(isNullOrEmpty(copyNum) || copyNum=="0")
-			msg.append("Copy Num is required!!\n");
+		msg.append(numberValidation(copyNum, "Copy Number"));
 		
 		if(authors.size()==0)
 			msg.append("Author detail is required!");
@@ -68,8 +66,7 @@ public class UIValidationRuleSet {
 		if(isNullOrEmpty(isbn))
 			msg.append("ISBN is required!!\n");
 		
-		if(isNullOrEmpty(noOfCopy)|| noOfCopy.trim()=="0")
-			msg.append("No. of copies is required!!\n");
+		msg.append(numberValidation(noOfCopy, "Num of Copies"));
 		
 		return msg.toString();
 	}
@@ -101,6 +98,20 @@ public class UIValidationRuleSet {
 		}
 		
 		String regex = "^[a-zA-Z\\s-]*$";
+        Pattern pattern = Pattern.compile(regex);
+        if(!pattern.matcher(s).matches()) {
+        	return "Invalid " +fieldName + "\n";
+        }
+        
+		return "";
+	}
+	
+	private static String numberValidation(String s,String fieldName) {
+		if(isNullOrEmpty(s)) {
+			return fieldName+" is required\n";
+		}
+		
+		String regex = "^[0-9]+$";
         Pattern pattern = Pattern.compile(regex);
         if(!pattern.matcher(s).matches()) {
         	return "Invalid " +fieldName + "\n";

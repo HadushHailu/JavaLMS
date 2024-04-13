@@ -41,6 +41,7 @@ public class PanelAddBook extends JPanel {
 	private AuthorsWindow authorWindow;
 	private List<Author> authorList = new ArrayList<>();
 	private  ControllerInterface ci = new SystemController();
+	ButtonGroup buttonGroup;
 
 	/**
 	 * Create the panel.
@@ -92,6 +93,7 @@ public class PanelAddBook extends JPanel {
 		textTotalCopy.setText("");
 		rdn7Days.setSelected(false);
 		authorList.clear();
+		buttonGroup.clearSelection();
 	}
 		
 	public PanelAddBook() {
@@ -122,7 +124,7 @@ public class PanelAddBook extends JPanel {
 		panel.add(texttitle);
 		texttitle.setColumns(10);
 		
-		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup = new ButtonGroup();
 		
 	    rdn7Days = new JRadioButton("7 days");
 		rdn7Days.setBounds(571, 95, 92, 23);
@@ -179,11 +181,15 @@ public class PanelAddBook extends JPanel {
 					return;
 				}
 				
-				ci.addBook(textIsbn.getText(), texttitle.getText(), 
+				String res = ci.addBook(textIsbn.getText(), texttitle.getText(), 
 						Integer.parseInt(textTotalCopy.getText()), length, authorList);
-				
-				clearBook();
-				viewBook();
+				if(res == "ok") {
+					JOptionPane.showMessageDialog(null,"Book added successfuly!");
+					clearBook();
+					viewBook();
+				}else {
+					JOptionPane.showMessageDialog(null,res);
+				}
 			}
 		});
 				

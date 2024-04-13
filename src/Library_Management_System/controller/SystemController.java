@@ -66,7 +66,7 @@ public class SystemController implements ControllerInterface {
         List<Book> bookList = allBooks();
 		Book bk=null;
 		for(Book book: bookList) {			
-			if(bk.getIsbn().equals(bookIsbn)){
+			if(book.getIsbn().equals(bookIsbn)){
 				bk=book;								
 				break;
 			}
@@ -191,14 +191,23 @@ public class SystemController implements ControllerInterface {
 	}
 	
 	@Override
-	public void addBook(String isbn, String title,
+	public String addBook(String isbn, String title,
 			int copyNum, int maxLength, List<Author> authors) {
+		
+		List<Book> bookList = allBooks();
+		for(Book book: bookList) {			
+			if(book.getIsbn().equals(isbn)){							
+				return "Duplicate ISBN found! Try with new one!";
+			}
+		}
+		
 		List<Book> lb = new ArrayList<>(){
 			{
 			add(new Book(isbn, title, copyNum, maxLength, authors));
 			}
 		};
 		DataAccessFacade.loadBookMap(lb);
+		return "ok";
 	} 
 	
 	public void addBook(List<Book> books) {
