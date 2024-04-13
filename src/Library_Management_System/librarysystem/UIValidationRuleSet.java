@@ -13,9 +13,10 @@ public class UIValidationRuleSet {
 	
 	public static String loginValidation(String userName,String password) {
 		msg=new StringBuilder("");
-		if(userName.isEmpty())
+		if(isNullOrEmpty(userName))
 			msg.append("User name is required!!\n");
-		if(password.isEmpty())
+		
+		if(isNullOrEmpty(password))
 			msg.append("Password is required!!\n");
 		
 		return msg.toString();
@@ -24,10 +25,10 @@ public class UIValidationRuleSet {
 	public static String checkoutValidation(String memberId,String isbn) {
 		msg=new StringBuilder("");
 		
-		if(memberId.isEmpty())
+		if(isNullOrEmpty(memberId))
 			msg.append("Member ID is required!!\n");
 		
-		if(isbn.isEmpty())
+		if(isNullOrEmpty(isbn))
 			msg.append("Book ISBN is required!!\n");
 		
 		return msg.toString();
@@ -37,13 +38,13 @@ public class UIValidationRuleSet {
 			String copyNum, List<Author> authors) {
 		msg=new StringBuilder("");
 		
-		if(isbn.isEmpty())
+		if(isNullOrEmpty(isbn))
 			msg.append("ISBN is required!!\n");
 		
-		if(title.isEmpty())
+		if(isNullOrEmpty(title))
 			msg.append("Book title is required!!\n");
 		
-		if(copyNum.isEmpty() || copyNum=="0")
+		if(isNullOrEmpty(copyNum) || copyNum=="0")
 			msg.append("Copy Num is required!!\n");
 		
 		if(authors.size()==0)
@@ -64,10 +65,10 @@ public class UIValidationRuleSet {
 	
 	public static String addBookCopyValidation(String isbn,String noOfCopy) {
 		msg=new StringBuilder("");
-		if(isbn.isEmpty())
+		if(isNullOrEmpty(isbn))
 			msg.append("ISBN is required!!\n");
 		
-		if(noOfCopy.isEmpty() || noOfCopy.trim()=="0")
+		if(isNullOrEmpty(noOfCopy)|| noOfCopy.trim()=="0")
 			msg.append("No. of copies is required!!\n");
 		
 		return msg.toString();
@@ -95,10 +96,11 @@ public class UIValidationRuleSet {
 	}
 	
 	private static String alphabetValidation(String s,String fieldName) {
-		if(s.isEmpty()) {
+		if(isNullOrEmpty(s)) {
 			return fieldName+" is required\n";
 		}
-		String regex = "^[a-zA-Z]*$";
+		
+		String regex = "^[a-zA-Z\\s-]*$";
         Pattern pattern = Pattern.compile(regex);
         if(!pattern.matcher(s).matches()) {
         	return "Invalid " +fieldName + "\n";
@@ -108,7 +110,7 @@ public class UIValidationRuleSet {
 	}
 	
 	public static String mobileNumValidation(String phoneNo,String fieldName) {
-		if(phoneNo.isEmpty()) {
+		if(isNullOrEmpty(phoneNo)) {
 			return fieldName+" is required\n";
 		}
 		
@@ -123,9 +125,16 @@ public class UIValidationRuleSet {
         return "";
 	}
 	
+	public static boolean isNullOrEmpty(String s) {
+		if(s==null||s.isEmpty()||s.trim()=="")
+			return true;
+		
+		return false;
+	}
+	
 	public static String zipCodeValidation(String zip) {
 		String msg="";
-		if(zip.isEmpty()) {
+		if(isNullOrEmpty(zip)) {
 			msg="Zip Code is required!\n";
 		}
 		else {

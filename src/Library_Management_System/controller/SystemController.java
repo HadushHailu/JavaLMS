@@ -64,31 +64,36 @@ public class SystemController implements ControllerInterface {
         
 		//check if bookISBN exists and copy is available
         List<Book> bookList = allBooks();
-		Book book=null;
-		for(Book bk: bookList) {
+		Book bk=null;
+		for(Book book: bookList) {			
 			if(bk.getIsbn().equals(bookIsbn)){
-				if(bk.getNextAvailableCopy() != null) {
-					BookCopy bc = bk.getNextAvailableCopy();
-					bc.changeAvailability();
-					System.out.println("BookCopy num:" + bc.getCopyNum());
-					addCheckoutEntry(
-							Integer.toString(rand.nextInt(1000)),
-							member,
-							user,
-							bc,
-							LocalDate.now(),
-							LocalDate.now().plusDays(bk.getMaxCheckoutLength())
-							);
-					addBook(bookList);
-					ret = "ok";
-					break;
-				}else {
-					System.out.println("No available copy!");
-					ret = "Book copy is not available!";
-				}
-				
+				bk=book;								
 				break;
 			}
+		}
+		
+		if(bk!=null) {
+			if(bk.getNextAvailableCopy() != null) {
+				BookCopy bc = bk.getNextAvailableCopy();
+				bc.changeAvailability();
+				System.out.println("BookCopy num:" + bc.getCopyNum());
+				addCheckoutEntry(
+						Integer.toString(rand.nextInt(1000)),
+						member,
+						user,
+						bc,
+						LocalDate.now(),
+						LocalDate.now().plusDays(bk.getMaxCheckoutLength())
+						);
+				addBook(bookList);
+				ret = "ok";
+			}else {
+				System.out.println("No available copy!");
+				ret = "Book copy is not available!";
+			}
+		}
+		else {
+			return "Invalid ISBN";
 		}
 		return ret;
 	}
