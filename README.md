@@ -1,1 +1,1 @@
-[plot](./img/lms.png)
+ <img src="./img/lms.png"/>
