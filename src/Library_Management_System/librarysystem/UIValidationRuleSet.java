@@ -31,6 +31,15 @@ public class UIValidationRuleSet {
 		return msg.toString();
 	}
 	
+	public static String checkoutValidationMember(String memberId) {
+		msg=new StringBuilder("");
+			
+		if(isNullOrEmpty(memberId))
+			msg.append("Member ID is required!!\n");
+		
+		return msg.toString();
+	}
+	
 	public static String checkoutValidation(String memberId,String isbn) {
 		msg=new StringBuilder("");
 		

@@ -253,6 +253,16 @@ public class PanelAddBook extends JPanel {
 		lblNewLabel.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-info-30.png"));
 		lblNewLabel.setBounds(437, 0, 43, 48);
 		panel_1.add(lblNewLabel);
+		
+		JButton btnNewButton_2_1 = new JButton("Refresh");
+		btnNewButton_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				viewBook();
+			}
+		});
+		btnNewButton_2_1.setFont(new Font("FreeSans", Font.BOLD, 16));
+		btnNewButton_2_1.setBounds(652, 6, 187, 36);
+		panel_1.add(btnNewButton_2_1);
 
 		initJTable();
 	}

@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.awt.event.ActionEvent;
@@ -154,7 +155,7 @@ public class PanelCheckoutBook extends JPanel {
 		viewRecord();
 	}
 	public void initJTableRecord() {
-		String[] column = {"Record ID", "Member ID", "Member Full Name", "Book title", "Checkout Date", "Due Date"};
+		String[] column = {"Record ID", "Member ID", "Member Full Name", "Book title",  "Copy Number","Checkout Date", "Due Date"};
 		tableRecord.setModel(modelRecord);
 		modelRecord.setColumnIdentifiers(column);
 		viewRecord();
@@ -179,12 +180,67 @@ public class PanelCheckoutBook extends JPanel {
 			//row[2] = entry.getUser().getAuthorization().toString();
 			row[2] = entry.getMember().getFirstName() + " " + entry.getMember().getLastName();
 			row[3] = entry.getBookCopy().getBook().getTitle();
-			row[4] = entry.getCheckoutDate().toString();
-			row[5] = entry.getDueDate().toString();
+			row[4] = Integer.toString(entry.getBookCopy().getCopyNum());
+			row[5] = entry.getCheckoutDate().toString();
+			row[6] = entry.getDueDate().toString();
 			modelRecord.addRow(row);
 		}
 		
 	}
+	
+	public void viewRecordMember() {
+		
+		modelRecord.setRowCount(0);
+		
+		//check if member exists
+		List<LibraryMember> memberList=ci.allMembers();
+		LibraryMember member=null;
+
+		for(LibraryMember mem: memberList) {
+			if(mem.getMemberId().equals(txtMemberId.getText())) {
+				member=mem;
+				break;
+			}
+		}
+		if(member==null) {
+			JOptionPane.showMessageDialog(null,"Member ID doesn't exist!");
+			return;
+		}
+		
+		
+		//filter only for this particular member
+		List<CheckoutEntry> entryList = ci.allCheckoutEntry();
+		List<CheckoutEntry> thisMemberEntry = new ArrayList<>();
+		
+		for(CheckoutEntry entry: entryList) {
+			System.out.println(entry.getMember().getMemberId());
+			if(entry.getMember().getMemberId().equals(txtMemberId.getText())) {
+				thisMemberEntry.add(entry);
+			}
+		}
+		
+		if(thisMemberEntry.size() == 0) {
+			JOptionPane.showMessageDialog(null,"Member has no checkout entry!");
+			return;
+		}
+		
+		String[] row = new String[7];
+	
+		for(CheckoutEntry entry: thisMemberEntry) {
+			row[0] = entry.getReocordId();
+			row[1] = entry.getMember().getMemberId();
+			//row[2] = entry.getUser().getAuthorization().toString();
+			row[2] = entry.getMember().getFirstName() + " " + entry.getMember().getLastName();
+			row[3] = entry.getBookCopy().getBook().getTitle();
+			row[4] = Integer.toString(entry.getBookCopy().getCopyNum());
+			row[5] = entry.getCheckoutDate().toString();
+			row[6] = entry.getDueDate().toString();
+			modelRecord.addRow(row);
+			
+		}
+ 			
+	}
+	
 	public void viewBook() {
 		modelBook.setRowCount(0);
 		List<Book> bookList = ci.allBooks();
@@ -284,7 +340,7 @@ public class PanelCheckoutBook extends JPanel {
 		
 		JButton btnSearch = new JButton("Search ISBN");
 		btnSearch.setFont(new Font("FreeSans", Font.BOLD, 16));
-		btnSearch.setBounds(470, 68, 161, 56);
+		btnSearch.setBounds(497, 32, 211, 40);
 		panel.add(btnSearch);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -311,7 +367,7 @@ public class PanelCheckoutBook extends JPanel {
 				String res=ci.addCheckoutEntry(txtMemberId.getText(), txtBookIsbn.getText(), session);
 				if(res=="ok") {
 					JOptionPane.showMessageDialog(null,"Checkout successfully!");
-					viewRecord();
+					viewRecordMember();
 					viewBook();
 					txtBookIsbn.setText("");
 				}
@@ -321,8 +377,25 @@ public class PanelCheckoutBook extends JPanel {
 				
 			}
 		});
-		btnSearch_1.setBounds(670, 68, 186, 56);
+		btnSearch_1.setBounds(743, 32, 186, 99);
 		panel.add(btnSearch_1);
+		
+		JButton btnSearchMemberCheckout = new JButton("Search member checkout");
+		btnSearchMemberCheckout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String errorMsg=UIValidationRuleSet.checkoutValidationMember(txtMemberId.getText());
+				if(!errorMsg.isEmpty()) {
+					JOptionPane.showMessageDialog(null,errorMsg);
+					return;
+				}
+				
+				viewRecordMember();
+				
+			}
+		});
+		btnSearchMemberCheckout.setFont(new Font("FreeSans", Font.BOLD, 14));
+		btnSearchMemberCheckout.setBounds(497, 91, 211, 40);
+		panel.add(btnSearchMemberCheckout);
 		//btnSearch_1.setEnabled(false);
 
 		JPanel panel_1 = new JPanel();
@@ -357,7 +430,7 @@ public class PanelCheckoutBook extends JPanel {
 			}
 		});
 		btnRefreshBookRecord.setFont(new Font("FreeSans", Font.BOLD, 16));
-		btnRefreshBookRecord.setBounds(386, 9, 182, 46);
+		btnRefreshBookRecord.setBounds(419, 9, 149, 46);
 		panel_1.add(btnRefreshBookRecord);
 		
 		JPanel panel_2 = new JPanel();
