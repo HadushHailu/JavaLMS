@@ -35,7 +35,7 @@ public interface ControllerInterface {
 	
 	public String addCheckoutEntry(String memberId, String bookIsbn, User user);
 	
-	public boolean addBookCopy(String isbn,int totolCopy);
+	public String addBookCopy(String isbn,int totolCopy);
 	public void addMember(String memberID,
 						  String firstName, String lastName,
 						  String tel, String street, String state, String city,

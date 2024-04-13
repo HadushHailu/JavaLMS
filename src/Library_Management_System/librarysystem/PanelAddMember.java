@@ -4,9 +4,11 @@ import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -36,7 +38,8 @@ public class PanelAddMember extends JPanel {
 	private JTextField txtState;
 	private JTextField txtCity;
 	private JTable table;
-
+	//Random randomMemberId = new Random();
+	private int maxMemId=1000;
 	/**
 	 * Create the panel.
 	 */
@@ -45,20 +48,24 @@ public class PanelAddMember extends JPanel {
 		String[] column = {"Member ID","First Name","Last Name", "Tel", "Address"};
 		table.setModel(model);
 		model.setColumnIdentifiers(column);
-		viewBook();
+		viewMember();
+		txtMemberId.setText(String.valueOf(maxMemId+1));
 	}
 	
 
 	/**
 	 * View Book
 	 */
-	public void viewBook() {
+	public void viewMember() {
 		model.setRowCount(0);
 		List<LibraryMember> memberList = ci.allMembers();
 		System.out.println(memberList.size());
 		String[] row = new String[5];
 	
- 		for(LibraryMember member: memberList) {
+ 		for(LibraryMember member: memberList) {		
+ 			if(!member.getMemberId().isEmpty() && Integer.valueOf(member.getMemberId()) > maxMemId ) {
+ 				maxMemId=Integer.valueOf(member.getMemberId());
+ 			}
 			row[0] = member.getMemberId();
 			row[1] = member.getFirstName();
 			row[2] = member.getLastName();
@@ -68,7 +75,15 @@ public class PanelAddMember extends JPanel {
 			row[4] = member.getAddress().getStreet() + " " + member.getAddress().getState();
 			model.addRow(row);
 		}
-		
+	}
+	public void clearForm() {
+		txtFirstName.setText("");
+		txtLastName.setText("");
+		txtTel.setText("");
+		txtStreet.setText("");
+		txtZip.setText("");
+		txtState.setText("");
+		txtCity.setText("");	
 	}
 	
 	public PanelAddMember() {
@@ -93,10 +108,9 @@ public class PanelAddMember extends JPanel {
 		panel_2.add(lblMemberId);
 		
 		txtMemberId = new JTextField();
+		txtMemberId.setEditable(false);
 		txtMemberId.setBounds(81, 8, 97, 19);
 		panel_2.add(txtMemberId);
-//		txtMemberId.setText("1004");
-//		txtMemberId.setEnabled(false);
 		txtMemberId.setColumns(10);
 		
 		JLabel lblFirstName = new JLabel("First Name");
@@ -104,7 +118,7 @@ public class PanelAddMember extends JPanel {
 		panel_2.add(lblFirstName);
 		
 		txtFirstName = new JTextField();
-		txtFirstName.setBounds(296, 9, 127, 18);
+		txtFirstName.setBounds(296, 9, 121, 18);
 		panel_2.add(txtFirstName);
 		txtFirstName.setColumns(10);
 		
@@ -175,6 +189,19 @@ public class PanelAddMember extends JPanel {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String errorMsg=UIValidationRuleSet.addMemberValidation(txtFirstName.getText(),
+						txtLastName.getText(),
+						txtTel.getText(),
+						txtStreet.getText(),
+						txtState.getText(),
+						txtCity.getText(),				
+						txtZip.getText());
+				
+				if(!errorMsg.isEmpty()) {
+					JOptionPane.showMessageDialog(null,errorMsg);
+					return;
+				}
+				
 				ci.addMember(txtMemberId.getText(),
 						txtFirstName.getText(),
 						txtLastName.getText(),
@@ -183,7 +210,12 @@ public class PanelAddMember extends JPanel {
 						txtCity.getText(),
 						txtState.getText(),
 						txtZip.getText());
-				viewBook();	
+				
+				
+				JOptionPane.showMessageDialog(null,"Member added successfully!!");
+				clearForm();
+				viewMember();	
+				txtMemberId.setText(String.valueOf(maxMemId+1));
 			}
 			
 		});
@@ -191,6 +223,11 @@ public class PanelAddMember extends JPanel {
 		panel_1.add(btnAdd);
 		
 		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clearForm();
+			}
+		});
 		btnClear.setBounds(147, 11, 89, 25);
 		panel_1.add(btnClear);
 		

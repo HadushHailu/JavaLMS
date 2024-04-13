@@ -58,7 +58,12 @@ public class PanelAddBookCopy extends JPanel {
 		row[2] = Integer.toString(book.getCopyNums().size());
 		//row[2] = book.getIsbn();
 		model.addRow(row);
-		}
+	}
+	
+	public void clearForm() {
+		txtIsbn.setText("");
+    	txtNoOfCopy.setText("1");
+	}
 	
 	/**
 	 * Create the panel.
@@ -107,9 +112,21 @@ public class PanelAddBookCopy extends JPanel {
 		scrollPane.setViewportView(table);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String errorMsg=UIValidationRuleSet.addBookCopyValidation(txtIsbn.getText(), txtNoOfCopy.getText());
+				if(!errorMsg.isEmpty()) {
+					JOptionPane.showMessageDialog(null,errorMsg);
+					return;
+				}
 				
-			    ci.addBookCopy(txtIsbn.getText(), Integer.parseInt(txtNoOfCopy.getText()));
-				initJTable();
+			    String res = ci.addBookCopy(txtIsbn.getText(), Integer.parseInt(txtNoOfCopy.getText()));
+			    if(res=="ok") {
+			    	JOptionPane.showMessageDialog(null,"Book copy added successfully!");
+			    	initJTable();
+			    	clearForm();
+			    }
+			    else {
+			    	JOptionPane.showMessageDialog(null,res);
+			    }
 			}
 		});
 

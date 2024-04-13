@@ -24,6 +24,7 @@ public class SystemController implements ControllerInterface {
 	public static User session;
 	Random rand = new Random();
 	
+	
 	@Override
 	public boolean login(String id, String password){
 		DataAccess da = new DataAccessFacade();
@@ -126,23 +127,28 @@ public class SystemController implements ControllerInterface {
 	}
 	
 	@Override
-	public boolean addBookCopy(String isbn,int totolCopy) {
+	public String addBookCopy(String isbn,int totalCopy) {
+		if(totalCopy==0) {
+			return "Invalid Copy Number!";
+		}
+		
 		List<Book> bookList = allBooks();
 		Book book = null;
 		for(Book b: bookList) {
 			if(b.getIsbn().equals(isbn)) {
 				book = b;
+				break;
 			}
 		}
 		
 		if(book==null) {
-			return false;
+			return "Invalid ISBN";
 		}
-		book.addCopy(totolCopy);
+		book.addCopy(totalCopy);
 		
 		//load
 		DataAccessFacade.loadBookMap(bookList);
-		return true;
+		return "ok";
 	}
 	
 	public List<CheckoutEntry> allCheckoutEntry(){
