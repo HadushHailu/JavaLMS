@@ -154,14 +154,14 @@ public class PanelCheckoutBook extends JPanel {
 		viewRecord();
 	}
 	public void initJTableRecord() {
-		String[] column = {"Entry id", "Member ID", "Member Full Name", "Book title", "Checkout Date", "Due Date"};
+		String[] column = {"Record ID", "Member ID", "Member Full Name", "Book title", "Checkout Date", "Due Date"};
 		tableRecord.setModel(modelRecord);
 		modelRecord.setColumnIdentifiers(column);
 		viewRecord();
 	}
 	
 	public void initJTableBook() {
-		String[] column = {"Book ISBN", "Book title", "Available copies", "Loan period", "Due Date"};
+		String[] column = {"Book ISBN", "Book title", "Available copies", "Loan period", "Authors"};
 		tableBook.setModel(modelBook);
 		modelBook.setColumnIdentifiers(column);
 		viewBook();

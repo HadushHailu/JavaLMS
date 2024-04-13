@@ -96,9 +96,23 @@ public class UIValidationRuleSet {
 		StringBuilder msg1=new StringBuilder("");
 		msg1.append(alphabetValidation(state,"State"));
 		msg1.append(alphabetValidation(city,"City"));
-		msg1.append(alphabetValidation(street,"Street"));
+		msg1.append(alphaNumericValidation(street,"Street"));
 		msg1.append(zipCodeValidation(zip));
         return msg1.toString();
+	}
+	
+	private static String alphaNumericValidation(String s,String fieldName) {
+		if(isNullOrEmpty(s)) {
+			return fieldName+" is required\n";
+		}
+		
+		String regex = "^[a-zA-Z0-9\\s]+$";
+        Pattern pattern = Pattern.compile(regex);
+        if(!pattern.matcher(s).matches()) {
+        	return "Invalid " +fieldName + "\n";
+        }
+        
+		return "";
 	}
 	
 	private static String alphabetValidation(String s,String fieldName) {

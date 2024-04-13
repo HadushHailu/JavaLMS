@@ -33,7 +33,7 @@ public class PanelAddBookCopy extends JPanel {
 
 	public void initJTable() {
 		model = new DefaultTableModel();
-		String[] column = {"Book ISBN","BOOK title","Copy Number"};
+		String[] column = {"Book ISBN","Book Title","Total copies"};
 		table.setModel(model);
 		model.setColumnIdentifiers(column);
 		viewBook();
