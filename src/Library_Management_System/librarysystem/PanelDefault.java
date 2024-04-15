@@ -20,14 +20,14 @@ public class PanelDefault extends JPanel {
 		setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/lib222.png"));
-		lblNewLabel.setBounds(368, 203, 677, 502);
+		lblNewLabel.setIcon(new ImageIcon(PanelDefault.class.getResource("/img/b96d5fb990ab8767ae3e5bde1dcce65b.jpg")));
+		lblNewLabel.setBounds(438, 216, 402, 418);
 		add(lblNewLabel);
 		
 		JLabel lblWelcome = new JLabel("Welcome");
 		lblWelcome.setForeground(UIManager.getColor("CheckBoxMenuItem.acceleratorForeground"));
 		lblWelcome.setFont(new Font("FreeSans", Font.BOLD, 76));
-		lblWelcome.setBounds(428, 123, 381, 130);
+		lblWelcome.setBounds(412, 122, 381, 130);
 		add(lblWelcome);
 
 	}

@@ -175,7 +175,7 @@ public class MainWindow implements WindowManager {
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/Double-J-Design-Ravenna-3d-Books.128.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(MainWindow.class.getResource("/img/Double-J-Design-Ravenna-3d-Books.128.png")));
 		lblNewLabel_1.setBounds(272, 75, 153, 147);
 		frame.getContentPane().add(lblNewLabel_1);
 		

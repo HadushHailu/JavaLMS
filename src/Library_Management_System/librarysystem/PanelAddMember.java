@@ -205,7 +205,7 @@ public class PanelAddMember extends JPanel {
 		txtZip.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-address-30.png"));
+		lblNewLabel.setIcon(new ImageIcon(PanelAddMember.class.getResource("/img/icons8-address-30.png")));
 		lblNewLabel.setBounds(12, 104, 70, 30);
 		panel.add(lblNewLabel);
 		
@@ -272,7 +272,7 @@ public class PanelAddMember extends JPanel {
 		scrollPane.setViewportView(table);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-info-30.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(PanelAddMember.class.getResource("/img/icons8-info-30.png")));
 		lblNewLabel_1.setBounds(424, 5, 43, 48);
 		panel_3.add(lblNewLabel_1);
 		

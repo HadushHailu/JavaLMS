@@ -167,7 +167,7 @@ public class PanelAddBook extends JPanel {
 		
 		JButton btnAddAuthors = new JButton("Add Author");
 		btnAddAuthors.setFont(new Font("FreeSans", Font.BOLD, 16));
-		btnAddAuthors.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-add-button-32.png"));
+		btnAddAuthors.setIcon(new ImageIcon(PanelAddBook.class.getResource("/img/icons8-add-button-32.png")));
 		btnAddAuthors.setBounds(870, 122, 194, 49);
 		//btnAddAuthors.setBackground(new Color(0, 100, 0));
 		btnAddAuthors.setForeground(new Color(0, 0, 0));
@@ -250,7 +250,7 @@ public class PanelAddBook extends JPanel {
 		panel_1.add(lblBookInformation);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-info-30.png"));
+		lblNewLabel.setIcon(new ImageIcon(PanelAddBook.class.getResource("/img/icons8-info-30.png")));
 		lblNewLabel.setBounds(437, 0, 43, 48);
 		panel_1.add(lblNewLabel);
 		

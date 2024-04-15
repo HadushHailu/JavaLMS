@@ -292,7 +292,7 @@ public class DashboardWindow implements WindowManager{
 		panelAddMember.add(lblLogoutPanel_1);
 		
 		ImageIcon image = new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-user-100.png");
-		JLabel lblAuthoIcon = new JLabel(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/user(2).png"));
+		JLabel lblAuthoIcon = new JLabel(new ImageIcon(DashboardWindow.class.getResource("/img/user(2).png")));
 		lblAuthoIcon.setBounds(1121, 28, 76, 64);
 		frame.getContentPane().add(lblAuthoIcon);
 		
@@ -303,7 +303,7 @@ public class DashboardWindow implements WindowManager{
 				switchPanels(panelDefault);
 			}
 		});
-		lblNewLabel_1.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/Double-J-Design-Ravenna-3d-Books.128.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(DashboardWindow.class.getResource("/img/Double-J-Design-Ravenna-3d-Books.128.png")));
 		lblNewLabel_1.setBounds(536, 0, 146, 158);
 		frame.getContentPane().add(lblNewLabel_1);
 		

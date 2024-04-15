@@ -418,7 +418,7 @@ public class PanelCheckoutBook extends JPanel {
 		panel_1.add(lblRecordInformation);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-info-30.png"));
+		lblNewLabel.setIcon(new ImageIcon(PanelCheckoutBook.class.getResource("/img/icons8-info-30.png")));
 		lblNewLabel.setBounds(116, 6, 43, 48);
 		panel_1.add(lblNewLabel);
 		
@@ -463,7 +463,7 @@ public class PanelCheckoutBook extends JPanel {
 		panel_2.add(btnRefresh);
 		
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-info-30.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(PanelCheckoutBook.class.getResource("/img/icons8-info-30.png")));
 		lblNewLabel_1.setBounds(22, 6, 43, 48);
 		panel_2.add(lblNewLabel_1);
 		

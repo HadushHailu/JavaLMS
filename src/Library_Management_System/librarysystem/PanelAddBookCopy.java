@@ -130,7 +130,7 @@ public class PanelAddBookCopy extends JPanel {
 		scrollPane.setViewportView(table);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon("/home/hadush/Documents/MIU/MPP/JavaLMS/img/icons8-info-30.png"));
+		lblNewLabel_2.setIcon(new ImageIcon(PanelAddBookCopy.class.getResource("/img/icons8-add-button-32.png")));
 		lblNewLabel_2.setBounds(422, 1, 43, 48);
 		panel_1.add(lblNewLabel_2);
 		
